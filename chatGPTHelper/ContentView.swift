@@ -8,52 +8,58 @@
 import SwiftUI
 import SwiftData
 
+enum MenuItem: CaseIterable {
+    case Read
+    case Quote
+    case Images
+    case Context
+    case Settings
+}
+
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @State private var selectedItem: MenuItem? = .Read
+    @State var context: String
+    
+    init() {
+        context = ""
+    }
+    
+       var body: some View {
+           NavigationSplitView {
+               // Sidebar
+               List(MenuItem.allCases, id: \.self, selection: $selectedItem) { item in
+                   Text(String(describing: item))
+               }
+               .frame(minWidth: 200)
+               .navigationTitle("Menu")
+           } detail: {
+               // Detail View
+               if let selectedItem = selectedItem {
+                   DetailView(selectedItem: selectedItem, context: context)
+               } else {
+                   Text("Select an item")
+                       .foregroundColor(.gray)
+               }
+           }
+       }
+}
 
+struct DetailView: View {
+    let selectedItem: MenuItem
+    @State var context: String
+    
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteItems)
-            }
-            .navigationSplitViewColumnWidth(min: 180, ideal: 200)
-            .toolbar {
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-        } detail: {
-            Text("Select an item")
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
+        switch selectedItem {
+        case .Read:
+            ReadView()
+        case .Context:
+            ContextView(context: $context).modelContainer(for: [ContextData.self])
+        default:
+            Text("")
         }
     }
 }
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
 }

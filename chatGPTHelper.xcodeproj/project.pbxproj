@@ -9,12 +9,14 @@
 /* Begin PBXBuildFile section */
 		506EF7C22D0AE31000FDD5CA /* chatGPTHelperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7C12D0AE31000FDD5CA /* chatGPTHelperApp.swift */; };
 		506EF7C42D0AE31000FDD5CA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7C32D0AE31000FDD5CA /* ContentView.swift */; };
-		506EF7C62D0AE31000FDD5CA /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7C52D0AE31000FDD5CA /* Item.swift */; };
 		506EF7C82D0AE31200FDD5CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 506EF7C72D0AE31200FDD5CA /* Assets.xcassets */; };
 		506EF7CB2D0AE31200FDD5CA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 506EF7CA2D0AE31200FDD5CA /* Preview Assets.xcassets */; };
 		506EF7D62D0AE31200FDD5CA /* chatGPTHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7D52D0AE31200FDD5CA /* chatGPTHelperTests.swift */; };
 		506EF7E02D0AE31200FDD5CA /* chatGPTHelperUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7DF2D0AE31200FDD5CA /* chatGPTHelperUITests.swift */; };
 		506EF7E22D0AE31200FDD5CA /* chatGPTHelperUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7E12D0AE31200FDD5CA /* chatGPTHelperUITestsLaunchTests.swift */; };
+		506EF7EF2D0AEA5600FDD5CA /* ReadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7EE2D0AEA5600FDD5CA /* ReadView.swift */; };
+		506EF7F12D0AEF6000FDD5CA /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7F02D0AEF6000FDD5CA /* Request.swift */; };
+		506EF7F32D0B231000FDD5CA /* ContextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7F22D0B231000FDD5CA /* ContextView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +40,6 @@
 		506EF7BE2D0AE31000FDD5CA /* chatGPTHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chatGPTHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		506EF7C12D0AE31000FDD5CA /* chatGPTHelperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatGPTHelperApp.swift; sourceTree = "<group>"; };
 		506EF7C32D0AE31000FDD5CA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		506EF7C52D0AE31000FDD5CA /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		506EF7C72D0AE31200FDD5CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		506EF7CA2D0AE31200FDD5CA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		506EF7CC2D0AE31200FDD5CA /* chatGPTHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = chatGPTHelper.entitlements; sourceTree = "<group>"; };
@@ -47,6 +48,9 @@
 		506EF7DB2D0AE31200FDD5CA /* chatGPTHelperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chatGPTHelperUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		506EF7DF2D0AE31200FDD5CA /* chatGPTHelperUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatGPTHelperUITests.swift; sourceTree = "<group>"; };
 		506EF7E12D0AE31200FDD5CA /* chatGPTHelperUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatGPTHelperUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		506EF7EE2D0AEA5600FDD5CA /* ReadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadView.swift; sourceTree = "<group>"; };
+		506EF7F02D0AEF6000FDD5CA /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		506EF7F22D0B231000FDD5CA /* ContextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,10 +103,12 @@
 			children = (
 				506EF7C12D0AE31000FDD5CA /* chatGPTHelperApp.swift */,
 				506EF7C32D0AE31000FDD5CA /* ContentView.swift */,
-				506EF7C52D0AE31000FDD5CA /* Item.swift */,
+				506EF7EE2D0AEA5600FDD5CA /* ReadView.swift */,
+				506EF7F22D0B231000FDD5CA /* ContextView.swift */,
 				506EF7C72D0AE31200FDD5CA /* Assets.xcassets */,
 				506EF7CC2D0AE31200FDD5CA /* chatGPTHelper.entitlements */,
 				506EF7C92D0AE31200FDD5CA /* Preview Content */,
+				506EF7F02D0AEF6000FDD5CA /* Request.swift */,
 			);
 			path = chatGPTHelper;
 			sourceTree = "<group>";
@@ -262,8 +268,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				506EF7F32D0B231000FDD5CA /* ContextView.swift in Sources */,
 				506EF7C42D0AE31000FDD5CA /* ContentView.swift in Sources */,
-				506EF7C62D0AE31000FDD5CA /* Item.swift in Sources */,
+				506EF7F12D0AEF6000FDD5CA /* Request.swift in Sources */,
+				506EF7EF2D0AEA5600FDD5CA /* ReadView.swift in Sources */,
 				506EF7C22D0AE31000FDD5CA /* chatGPTHelperApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
