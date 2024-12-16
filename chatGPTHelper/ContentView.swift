@@ -16,14 +16,16 @@ enum MenuItem: CaseIterable {
     case Settings
 }
 
+class PromptParamsModel: ObservableObject {
+    @Published var context = ""
+    @Published var mockText = ""
+    @Published var isMockEnabled = false
+}
+
 struct ContentView: View {
     @State private var selectedItem: MenuItem? = .Read
-    @State var context: String
-    
-    init() {
-        context = ""
-    }
-    
+    @StateObject private var promptParamsModel = PromptParamsModel()
+
        var body: some View {
            NavigationSplitView {
                // Sidebar
@@ -35,7 +37,8 @@ struct ContentView: View {
            } detail: {
                // Detail View
                if let selectedItem = selectedItem {
-                   DetailView(selectedItem: selectedItem, context: context)
+                   DetailView(selectedItem: selectedItem)
+                       .environmentObject(promptParamsModel).frame(maxWidth: .infinity, maxHeight: .infinity)
                } else {
                    Text("Select an item")
                        .foregroundColor(.gray)
@@ -46,14 +49,16 @@ struct ContentView: View {
 
 struct DetailView: View {
     let selectedItem: MenuItem
-    @State var context: String
-    
+    @EnvironmentObject private var promptParamsModel: PromptParamsModel
+
     var body: some View {
         switch selectedItem {
         case .Read:
             ReadView()
         case .Context:
-            ContextView(context: $context).modelContainer(for: [ContextData.self])
+            ContextView().environmentObject(promptParamsModel)
+        case .Settings:
+            SettingsView().environmentObject(promptParamsModel)
         default:
             Text("")
         }

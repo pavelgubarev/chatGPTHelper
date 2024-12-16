@@ -7,6 +7,12 @@
 
 import Foundation
 
+struct APIError: Codable {
+    let message: String
+    let type: String
+    let code: String
+}
+
 // Define the structure of your request body
 struct ChatGPTRequest: Codable {
     let model: String
@@ -26,20 +32,20 @@ struct ChatGPTResponse: Codable {
         let message: Message
     }
     let choices: [Choice]
+    let error: APIError?
 }
 
 // Async function to call ChatGPT API
 func fetchChatGPTResponse(prompt: String) async throws -> String {
     // Your API URL and Key
     let apiURL = "https://api.openai.com/v1/chat/completions"
-    let apiKey = "your-openai-api-key" // Replace with your actual key
-    
+       
     // Create the message array
     let messages = [Message(role: "user", content: prompt)]
     
     // Prepare the request body
     let requestBody = ChatGPTRequest(
-        model: "gpt-4", // or "gpt-3.5-turbo"
+        model: "gpt-4o-mini", // or "gpt-3.5-turbo"
         messages: messages,
         max_tokens: 150
     )
@@ -51,15 +57,21 @@ func fetchChatGPTResponse(prompt: String) async throws -> String {
     var request = URLRequest(url: URL(string: apiURL)!)
     request.httpMethod = "POST"
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-    request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+    request.addValue("Bearer \(Constants.APIKey)", forHTTPHeaderField: "Authorization")
     request.httpBody = jsonData
     
-    // Perform the API call
-    let (data, _) = try await URLSession.shared.data(for: request)
+    let (data, response) = try await URLSession.shared.data(for: request)
     
-    // Decode the response
-    let response = try JSONDecoder().decode(ChatGPTResponse.self, from: data)
+    if let httpResponse = response as? HTTPURLResponse {
+        print("HTTP Status Code: \(httpResponse.statusCode)")
+    }
+    print("Raw Response Data: \(String(data: data, encoding: .utf8) ?? "No response body")")
     
-    // Extract and return the response message content
-    return response.choices.first?.message.content ?? "No response received."
+    let decodedResponse = try JSONDecoder().decode(ChatGPTResponse.self, from: data)
+    
+    if let error = decodedResponse.error {
+        throw NSError(domain: "OpenAIAPI", code: 0, userInfo: [NSLocalizedDescriptionKey: error.message])
+    }
+    
+    return decodedResponse.choices.first?.message.content ?? "No response received."
 }

@@ -24,24 +24,21 @@ import SwiftUI
 struct ContextView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var contextData: [ContextData]
-    @Binding var contextText: String
-    
-    init(context: Binding<String>) {
-        self._contextText = context
-    }
+    @EnvironmentObject private var promptParamsModel: PromptParamsModel
+
+//    init(context: Binding<String>) {
+//        self._contextText = context
+//    }
     
     var body: some View {
         VStack {
-            TextField("Enter your note", text: $contextText)
+            TextField("Enter your note", text: $promptParamsModel.context)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
-                .onChange(of: contextText, {
+                .onChange(of: promptParamsModel.context, {
                     saveText()
                 }
                 )
-            Button("fetch") {
-                fetchText()
-            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {
@@ -51,25 +48,22 @@ struct ContextView: View {
     
     private func fetchText() {
         if let data = contextData.first {
-            contextText = data.text
+            promptParamsModel.context = data.text
         }
-        print(contextText)
     }
     
     private func saveText() {
-        if let existingNote = contextData.first {
-            existingNote.text = contextText
+        if let existingData = contextData.first {
+            existingData.text = promptParamsModel.context
         } else {
             // Create a new note if none exists
-            let newNote = ContextData(text: contextText)
-            modelContext.insert(newNote)
+            let newData = ContextData(text: promptParamsModel.context)
+            modelContext.insert(newData)
         }
         
         do {
             try modelContext.save()
-            print("Note saved successfully.")
         } catch {
-            print("Failed to save note: \(error.localizedDescription)")
         }
     }
 }

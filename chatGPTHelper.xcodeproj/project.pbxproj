@@ -17,6 +17,8 @@
 		506EF7EF2D0AEA5600FDD5CA /* ReadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7EE2D0AEA5600FDD5CA /* ReadView.swift */; };
 		506EF7F12D0AEF6000FDD5CA /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7F02D0AEF6000FDD5CA /* Request.swift */; };
 		506EF7F32D0B231000FDD5CA /* ContextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7F22D0B231000FDD5CA /* ContextView.swift */; };
+		506EF7F52D10562100FDD5CA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7F42D10562100FDD5CA /* SettingsView.swift */; };
+		506EF7F72D10647300FDD5CA /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7F62D10647300FDD5CA /* Settings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		506EF7EE2D0AEA5600FDD5CA /* ReadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadView.swift; sourceTree = "<group>"; };
 		506EF7F02D0AEF6000FDD5CA /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		506EF7F22D0B231000FDD5CA /* ContextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextView.swift; sourceTree = "<group>"; };
+		506EF7F42D10562100FDD5CA /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		506EF7F62D10647300FDD5CA /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,11 +108,13 @@
 				506EF7C12D0AE31000FDD5CA /* chatGPTHelperApp.swift */,
 				506EF7C32D0AE31000FDD5CA /* ContentView.swift */,
 				506EF7EE2D0AEA5600FDD5CA /* ReadView.swift */,
+				506EF7F42D10562100FDD5CA /* SettingsView.swift */,
 				506EF7F22D0B231000FDD5CA /* ContextView.swift */,
 				506EF7C72D0AE31200FDD5CA /* Assets.xcassets */,
 				506EF7CC2D0AE31200FDD5CA /* chatGPTHelper.entitlements */,
 				506EF7C92D0AE31200FDD5CA /* Preview Content */,
 				506EF7F02D0AEF6000FDD5CA /* Request.swift */,
+				506EF7F62D10647300FDD5CA /* Settings.swift */,
 			);
 			path = chatGPTHelper;
 			sourceTree = "<group>";
@@ -271,6 +277,8 @@
 				506EF7F32D0B231000FDD5CA /* ContextView.swift in Sources */,
 				506EF7C42D0AE31000FDD5CA /* ContentView.swift in Sources */,
 				506EF7F12D0AEF6000FDD5CA /* Request.swift in Sources */,
+				506EF7F52D10562100FDD5CA /* SettingsView.swift in Sources */,
+				506EF7F72D10647300FDD5CA /* Settings.swift in Sources */,
 				506EF7EF2D0AEA5600FDD5CA /* ReadView.swift in Sources */,
 				506EF7C22D0AE31000FDD5CA /* chatGPTHelperApp.swift in Sources */,
 			);
