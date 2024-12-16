@@ -27,12 +27,12 @@ struct SettingsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var mockedResponseData: [MockedResponseData]
     @EnvironmentObject private var promptParamsModel: PromptParamsModel
-
     
-//    init(text: Binding<String>, isMockEnabled: Binding<Bool>) {
-//        self._mockText = text
-//        self._isMockEnabled = isMockEnabled
-//    }
+    
+    //    init(text: Binding<String>, isMockEnabled: Binding<Bool>) {
+    //        self._mockText = text
+    //        self._isMockEnabled = isMockEnabled
+    //    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -47,8 +47,8 @@ struct SettingsView: View {
                     }
                     .pickerStyle(.segmented)
                 }
-                Spacer()
-                TextField("Enter your note", text: $promptParamsModel.mockText)
+                Text("\(geometry.size.height)")
+                TextEditor(text: $promptParamsModel.mockText)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(height: geometry.size.height * 0.5)
                     .onChange(of: promptParamsModel.mockText, {

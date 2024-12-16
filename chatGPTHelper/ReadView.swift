@@ -8,21 +8,30 @@
 import SwiftUI
 
 struct ReadView: View {
+    @State var response: String = "not yet"
     var body: some View {
-        var response: String = ""
         VStack {
             Button("Read this chapter") {
                 Task {
-                    do {
-                        response = try await fetchChatGPTResponse(prompt: "Hello, how are you?")
-                    } catch {
-                        print("Error: \(error.localizedDescription)")
-                    }
+                 await sendRequest()
                 }
             }
             Text(response)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+    
+    func sendRequest() async  {
+        let task = Task.detached {
+            do {
+                let result = try await fetchChatGPTResponse(prompt: "Hello, how are you?")
+                return result
+            } catch {
+                print("Error: \(error.localizedDescription)")
+                return ""
+            }
+        }
+        response = await task.value
     }
 }
 

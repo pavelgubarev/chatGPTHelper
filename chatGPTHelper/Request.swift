@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import SwiftData
+import SwiftUI
 
 struct APIError: Codable {
     let message: String
@@ -37,6 +39,13 @@ struct ChatGPTResponse: Codable {
 
 // Async function to call ChatGPT API
 func fetchChatGPTResponse(prompt: String) async throws -> String {
+    
+    @EnvironmentObject var promptParamsModel: PromptParamsModel
+    
+//    guard !promptParamsModel.isMockEnabled else {
+//        return promptParamsModel.mockText
+//    }
+    
     // Your API URL and Key
     let apiURL = "https://api.openai.com/v1/chat/completions"
        
@@ -65,7 +74,7 @@ func fetchChatGPTResponse(prompt: String) async throws -> String {
     if let httpResponse = response as? HTTPURLResponse {
         print("HTTP Status Code: \(httpResponse.statusCode)")
     }
-    print("Raw Response Data: \(String(data: data, encoding: .utf8) ?? "No response body")")
+//    print("Raw Response Data: \(String(data: data, encoding: .utf8) ?? "No response body")")
     
     let decodedResponse = try JSONDecoder().decode(ChatGPTResponse.self, from: data)
     

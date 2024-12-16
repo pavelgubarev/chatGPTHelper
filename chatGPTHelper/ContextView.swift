@@ -32,7 +32,7 @@ struct ContextView: View {
     
     var body: some View {
         VStack {
-            TextField("Enter your note", text: $promptParamsModel.context)
+            TextEditor(text: $promptParamsModel.context)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
                 .onChange(of: promptParamsModel.context, {
