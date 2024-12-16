@@ -54,7 +54,7 @@ struct DetailView: View {
     var body: some View {
         switch selectedItem {
         case .Read:
-            ReadView()
+            ReadView().environmentObject(promptParamsModel)
         case .Context:
             ContextView().environmentObject(promptParamsModel)
         case .Settings:
