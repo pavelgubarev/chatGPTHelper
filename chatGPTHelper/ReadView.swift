@@ -25,21 +25,19 @@ struct ReadView: View {
     }
     
     func sendRequest() async  {
-        interactor.prepare()
-        guard let request = interactor.buildRequest(promptParamsModel) else { return }
-                
-        print(request)
-        
-        let task = Task.detached {
-            do {
-                let result = try await fetchChatGPTResponse(prompt: request)
-                return result
-            } catch {
-                print("Error: \(error.localizedDescription)")
-                return ""
-            }
-        }
-        response = await task.value
+//        interactor.prepare()
+//        guard let request = interactor.buildRequest(promptParamsModel) else { return }
+//                        
+//        let task = Task.detached {
+//            do {
+//                let result = try await fetchChatGPTResponse(prompt: request)
+//                return result
+//            } catch {
+//                print("Error: \(error.localizedDescription)")
+//                return ""
+//            }
+//        }
+//        response = await task.value
     }
 }
 

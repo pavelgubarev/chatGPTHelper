@@ -54,9 +54,9 @@ func fetchChatGPTResponse(prompt: String) async throws -> String {
     
     // Prepare the request body
     let requestBody = ChatGPTRequest(
-        model: "gpt-4o-mini", // or "gpt-3.5-turbo"
+        model: "chatgpt-4o-latest", // or "gpt-3.5-turbo"
         messages: messages,
-        max_tokens: 150
+        max_tokens: 1500
     )
     
     // Encode the request body to JSON

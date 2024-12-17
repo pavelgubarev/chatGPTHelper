@@ -10,16 +10,11 @@ import SwiftData
 
 enum MenuItem: CaseIterable {
     case Read
+    case Summary
     case Quote
     case Images
     case Context
     case Settings
-}
-
-class PromptParamsModel: ObservableObject {
-    @Published var context = ""
-    @Published var mockText = ""
-    @Published var isMockEnabled = false
 }
 
 struct ContentView: View {
@@ -52,16 +47,20 @@ struct DetailView: View {
     @EnvironmentObject private var promptParamsModel: PromptParamsModel
 
     var body: some View {
-        switch selectedItem {
-        case .Read:
-            ReadView().environmentObject(promptParamsModel)
-        case .Context:
-            ContextView().environmentObject(promptParamsModel)
-        case .Settings:
-            SettingsView().environmentObject(promptParamsModel)
-        default:
-            Text("")
-        }
+        Group {
+            switch selectedItem {
+            case .Read:
+                ReadView()
+            case .Summary:
+                SummaryView()
+            case .Context:
+                ContextView()
+            case .Settings:
+                SettingsView()
+            default:
+                Text("")
+            }
+        }.environmentObject(promptParamsModel)
     }
 }
 
