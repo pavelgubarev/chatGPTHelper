@@ -24,6 +24,7 @@ final class MockedResponseData {
 import SwiftUI
 
 struct SettingsView: View {
+    @Environment(\.injected) private var dependencies: DIContainer
     @Environment(\.modelContext) private var modelContext
     @Query private var mockedResponseData: [MockedResponseData]
     @EnvironmentObject private var promptParamsModel: PromptParamsModel

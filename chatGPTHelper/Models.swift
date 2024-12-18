@@ -7,8 +7,10 @@
 
 import Foundation
 
+@MainActor
 class PromptParamsModel: ObservableObject {
     @Published var context = ""
     @Published var mockText = ""
     @Published var isMockEnabled = false
+    @Published var summaries = [String]()
 }

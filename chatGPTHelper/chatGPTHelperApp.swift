@@ -25,7 +25,7 @@ struct chatGPTHelperApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(container: DIContainer())
         }
         .modelContainer(for: [ContextData.self, MockedResponseData.self, SummaryData.self])
     }

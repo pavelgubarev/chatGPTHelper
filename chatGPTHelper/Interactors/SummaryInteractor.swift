@@ -8,11 +8,22 @@
 import Foundation
 import SwiftUI
 
-final class Interactor: ObservableObject {
+final class SummaryInteractor: ObservableObject {
+    
+    let repository: Repository
+    
     var wholeText: String = ""
     var chapters = [String]()
     
-    @Published var summaries: [String] = []
+    private var promptParamsModel: PromptParamsModel?
+
+    init(repository: Repository) {
+        self.repository = repository
+    }
+    
+    func configure(promptParamsModel: PromptParamsModel) {
+        self.promptParamsModel = promptParamsModel
+    }
 
     func setupText() {
         do {
@@ -27,23 +38,31 @@ final class Interactor: ObservableObject {
         chapters = wholeText.components(separatedBy: "##").filter { $0.count > 10 }
     }
     
+    @MainActor
     func buildRequestForAQuote(_ promptParamsModel: PromptParamsModel) -> String? {
         guard let chapter = chapters.randomElement() else { return nil }
         
         return promptParamsModel.context + chapter
     }
     
-    func requestAllSummaries() {        
+    @MainActor
+    func requestAllSummaries() {
+        print(promptParamsModel?.summaries)
+        DispatchQueue.main.async {
+            self.promptParamsModel?.summaries = []
+        }
+        print(promptParamsModel?.summaries)
         Task {
             for chapter in chapters.prefix(10) {
-                async let result = fetchChatGPTResponse(prompt: "Пожалуйста, сделай краткое содержание этой главы, начни с названия главы и перечисли основные события списком: " + chapter)
+                async let result = repository.fetchChatGPTResponse(prompt: "Пожалуйста, сделай краткое содержание этой главы, начни с названия главы и перечисли основные события списком: " + chapter)
 
 //                async let result = fakeQ()
                 
                 do {
                     let response = try await result
-                    DispatchQueue.main.async { [weak self] in
-                        self?.summaries.append(response)
+                    DispatchQueue.main.async {
+                        print("append")
+                        self.promptParamsModel?.summaries.append(response)
                     }
                 } catch {
                     print("Failed to fetch summary for a chapter: \(error)")
@@ -51,6 +70,7 @@ final class Interactor: ObservableObject {
             }
         }
     }
+    
     func fakeQ() async throws -> String {
         do {
                 try await Task.sleep(nanoseconds: 2_000_000_000) // 2 seconds

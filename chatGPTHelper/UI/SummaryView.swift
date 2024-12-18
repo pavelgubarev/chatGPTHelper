@@ -21,44 +21,44 @@ final class SummaryData {
 
 struct SummaryView: View {
     
-    @StateObject private var interactor = Interactor()
+    @Environment(\.injected) private var dependencies: DIContainer
     @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject private var promptParamsModel: PromptParamsModel
     @Query private var contextData: [SummaryData]
-
+    
     let columns = [
         GridItem(.adaptive(minimum: 300))
     ]
-
+    
     var body: some View {
         VStack {
             Button("Get All The Summaries") {
-                interactor.setupText()
-                interactor.requestAllSummaries()
+                dependencies.interactors.summary.setupText()
+                dependencies.interactors.summary.requestAllSummaries()
             }.padding()
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 10) {
-                    ForEach(interactor.summaries, id: \.self) { summary in
+                    ForEach(promptParamsModel.summaries, id: \.self) { summary in
                         scrollableTextCard(text: summary)
                     }
                 }
                 .padding()
             }
-        }.onChange(of: interactor.summaries) { _, newValue in
+        }.onChange(of: promptParamsModel.summaries) { _, newValue in
             guard let summary = newValue.last else { return }
             
             let newData = SummaryData(text: summary)
             modelContext.insert(newData)
             do {
                 try modelContext.save()
-                print("saved")
             } catch {
             }
         }.onAppear() {
             contextData.forEach { data in
                 // TODO
-                interactor.summaries.append(data.text)
+                promptParamsModel.summaries.append(data.text)
             }
-        }
+        }        
     }
     
     

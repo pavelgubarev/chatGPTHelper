@@ -10,8 +10,8 @@ import SwiftUI
 struct ReadView: View {
     @State var response: String = "not yet"
     @EnvironmentObject private var promptParamsModel: PromptParamsModel
-    let interactor = Interactor()
-    
+    @Environment(\.injected) private var dependencies: DIContainer
+
     var body: some View {
         VStack {
             Button("Read this chapter") {

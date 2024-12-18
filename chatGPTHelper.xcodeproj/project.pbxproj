@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5006EBC32D119602006DB6C1 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5006EBC22D119602006DB6C1 /* SummaryView.swift */; };
 		5006EBC52D11A3BC006DB6C1 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5006EBC42D11A3BC006DB6C1 /* Models.swift */; };
+		5006EBC72D12DFF4006DB6C1 /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5006EBC62D12DFF4006DB6C1 /* Assembly.swift */; };
 		506EF7C22D0AE31000FDD5CA /* chatGPTHelperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7C12D0AE31000FDD5CA /* chatGPTHelperApp.swift */; };
 		506EF7C42D0AE31000FDD5CA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7C32D0AE31000FDD5CA /* ContentView.swift */; };
 		506EF7C82D0AE31200FDD5CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 506EF7C72D0AE31200FDD5CA /* Assets.xcassets */; };
@@ -17,12 +18,12 @@
 		506EF7E02D0AE31200FDD5CA /* chatGPTHelperUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7DF2D0AE31200FDD5CA /* chatGPTHelperUITests.swift */; };
 		506EF7E22D0AE31200FDD5CA /* chatGPTHelperUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7E12D0AE31200FDD5CA /* chatGPTHelperUITestsLaunchTests.swift */; };
 		506EF7EF2D0AEA5600FDD5CA /* ReadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7EE2D0AEA5600FDD5CA /* ReadView.swift */; };
-		506EF7F12D0AEF6000FDD5CA /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7F02D0AEF6000FDD5CA /* Request.swift */; };
+		506EF7F12D0AEF6000FDD5CA /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7F02D0AEF6000FDD5CA /* Repository.swift */; };
 		506EF7F32D0B231000FDD5CA /* ContextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7F22D0B231000FDD5CA /* ContextView.swift */; };
 		506EF7F52D10562100FDD5CA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7F42D10562100FDD5CA /* SettingsView.swift */; };
 		506EF7F72D10647300FDD5CA /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7F62D10647300FDD5CA /* Settings.swift */; };
 		506EF7F92D106FB600FDD5CA /* Katya.txt in Resources */ = {isa = PBXBuildFile; fileRef = 506EF7F82D106FB600FDD5CA /* Katya.txt */; };
-		506EF7FB2D106FE000FDD5CA /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7FA2D106FE000FDD5CA /* Interactor.swift */; };
+		506EF7FB2D106FE000FDD5CA /* SummaryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7FA2D106FE000FDD5CA /* SummaryInteractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 /* Begin PBXFileReference section */
 		5006EBC22D119602006DB6C1 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		5006EBC42D11A3BC006DB6C1 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		5006EBC62D12DFF4006DB6C1 /* Assembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
 		506EF7BE2D0AE31000FDD5CA /* chatGPTHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chatGPTHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		506EF7C12D0AE31000FDD5CA /* chatGPTHelperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatGPTHelperApp.swift; sourceTree = "<group>"; };
 		506EF7C32D0AE31000FDD5CA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -57,12 +59,12 @@
 		506EF7DF2D0AE31200FDD5CA /* chatGPTHelperUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatGPTHelperUITests.swift; sourceTree = "<group>"; };
 		506EF7E12D0AE31200FDD5CA /* chatGPTHelperUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatGPTHelperUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		506EF7EE2D0AEA5600FDD5CA /* ReadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadView.swift; sourceTree = "<group>"; };
-		506EF7F02D0AEF6000FDD5CA /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		506EF7F02D0AEF6000FDD5CA /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		506EF7F22D0B231000FDD5CA /* ContextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextView.swift; sourceTree = "<group>"; };
 		506EF7F42D10562100FDD5CA /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		506EF7F62D10647300FDD5CA /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		506EF7F82D106FB600FDD5CA /* Katya.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Katya.txt; sourceTree = "<group>"; };
-		506EF7FA2D106FE000FDD5CA /* Interactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
+		506EF7FA2D106FE000FDD5CA /* SummaryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryInteractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5006EBC82D12E34C006DB6C1 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				506EF7EE2D0AEA5600FDD5CA /* ReadView.swift */,
+				506EF7C32D0AE31000FDD5CA /* ContentView.swift */,
+				5006EBC22D119602006DB6C1 /* SummaryView.swift */,
+				506EF7F42D10562100FDD5CA /* SettingsView.swift */,
+				506EF7F22D0B231000FDD5CA /* ContextView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		5006EBC92D12E47F006DB6C1 /* Interactors */ = {
+			isa = PBXGroup;
+			children = (
+				506EF7FA2D106FE000FDD5CA /* SummaryInteractor.swift */,
+			);
+			path = Interactors;
+			sourceTree = "<group>";
+		};
 		506EF7B52D0AE31000FDD5CA = {
 			isa = PBXGroup;
 			children = (
@@ -114,16 +136,13 @@
 			isa = PBXGroup;
 			children = (
 				506EF7C12D0AE31000FDD5CA /* chatGPTHelperApp.swift */,
-				506EF7C32D0AE31000FDD5CA /* ContentView.swift */,
-				5006EBC22D119602006DB6C1 /* SummaryView.swift */,
-				506EF7EE2D0AEA5600FDD5CA /* ReadView.swift */,
-				506EF7FA2D106FE000FDD5CA /* Interactor.swift */,
-				506EF7F42D10562100FDD5CA /* SettingsView.swift */,
-				506EF7F22D0B231000FDD5CA /* ContextView.swift */,
+				5006EBC62D12DFF4006DB6C1 /* Assembly.swift */,
+				5006EBC82D12E34C006DB6C1 /* UI */,
+				5006EBC92D12E47F006DB6C1 /* Interactors */,
 				506EF7C72D0AE31200FDD5CA /* Assets.xcassets */,
 				506EF7CC2D0AE31200FDD5CA /* chatGPTHelper.entitlements */,
 				506EF7C92D0AE31200FDD5CA /* Preview Content */,
-				506EF7F02D0AEF6000FDD5CA /* Request.swift */,
+				506EF7F02D0AEF6000FDD5CA /* Repository.swift */,
 				506EF7F62D10647300FDD5CA /* Settings.swift */,
 				506EF7F82D106FB600FDD5CA /* Katya.txt */,
 				5006EBC42D11A3BC006DB6C1 /* Models.swift */,
@@ -288,12 +307,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				506EF7F32D0B231000FDD5CA /* ContextView.swift in Sources */,
+				5006EBC72D12DFF4006DB6C1 /* Assembly.swift in Sources */,
 				506EF7C42D0AE31000FDD5CA /* ContentView.swift in Sources */,
-				506EF7F12D0AEF6000FDD5CA /* Request.swift in Sources */,
+				506EF7F12D0AEF6000FDD5CA /* Repository.swift in Sources */,
 				506EF7F52D10562100FDD5CA /* SettingsView.swift in Sources */,
 				506EF7F72D10647300FDD5CA /* Settings.swift in Sources */,
 				506EF7EF2D0AEA5600FDD5CA /* ReadView.swift in Sources */,
-				506EF7FB2D106FE000FDD5CA /* Interactor.swift in Sources */,
+				506EF7FB2D106FE000FDD5CA /* SummaryInteractor.swift in Sources */,
 				506EF7C22D0AE31000FDD5CA /* chatGPTHelperApp.swift in Sources */,
 				5006EBC32D119602006DB6C1 /* SummaryView.swift in Sources */,
 				5006EBC52D11A3BC006DB6C1 /* Models.swift in Sources */,

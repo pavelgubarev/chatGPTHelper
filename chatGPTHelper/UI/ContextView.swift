@@ -25,11 +25,8 @@ struct ContextView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var contextData: [ContextData]
     @EnvironmentObject private var promptParamsModel: PromptParamsModel
+    @Environment(\.injected) private var dependencies: DIContainer
 
-//    init(context: Binding<String>) {
-//        self._contextText = context
-//    }
-    
     var body: some View {
         VStack {
             TextEditor(text: $promptParamsModel.context)
