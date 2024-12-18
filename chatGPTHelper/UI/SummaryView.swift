@@ -8,23 +8,12 @@
 import SwiftUI
 import SwiftData
 
-@Model
-final class SummaryData {
-    @Attribute(.unique) var id: UUID
-    var text: String
-    
-    init(text: String) {
-        self.id = UUID()
-        self.text = text
-    }
-}
-
 struct SummaryView: View {
-    
-    @Environment(\.injected) private var dependencies: DIContainer
     @Environment(\.modelContext) private var modelContext
-    @EnvironmentObject private var promptParamsModel: PromptParamsModel
     @Query private var contextData: [SummaryData]
+
+    @Environment(\.injected) private var dependencies: DIContainer
+    @EnvironmentObject private var promptParamsModel: PromptParamsModel
     
     let columns = [
         GridItem(.adaptive(minimum: 300))
@@ -44,23 +33,11 @@ struct SummaryView: View {
                 }
                 .padding()
             }
-        }.onChange(of: promptParamsModel.summaries) { _, newValue in
-            guard let summary = newValue.last else { return }
-            
-            let newData = SummaryData(text: summary)
-            modelContext.insert(newData)
-            do {
-                try modelContext.save()
-            } catch {
-            }
-        }.onAppear() {
-            contextData.forEach { data in
-                // TODO
-                promptParamsModel.summaries.append(data.text)
-            }
-        }        
+        }
+        .onAppear() {
+            print(self.contextData)
+        }
     }
-    
     
     private func scrollableTextCard(text: String) -> some View {
         return ScrollView(showsIndicators: false) {

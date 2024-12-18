@@ -7,9 +7,24 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
+
+@Model
+final class SummaryData {
+    @Attribute(.unique) var id: UUID
+    var text: String
+    
+    init(text: String) {
+        self.id = UUID()
+        self.text = text
+    }
+}
 
 final class SummaryInteractor: ObservableObject {
     
+    @Query private var contextData: [SummaryData]
+    var modelContext: ModelContext?
+
     let repository: Repository
     
     var wholeText: String = ""
@@ -47,11 +62,10 @@ final class SummaryInteractor: ObservableObject {
     
     @MainActor
     func requestAllSummaries() {
-        print(promptParamsModel?.summaries)
         DispatchQueue.main.async {
+            // TODO: добавить очистку в хранилище
             self.promptParamsModel?.summaries = []
         }
-        print(promptParamsModel?.summaries)
         Task {
             for chapter in chapters.prefix(10) {
                 async let result = repository.fetchChatGPTResponse(prompt: "Пожалуйста, сделай краткое содержание этой главы, начни с названия главы и перечисли основные события списком: " + chapter)
@@ -64,6 +78,7 @@ final class SummaryInteractor: ObservableObject {
                         print("append")
                         self.promptParamsModel?.summaries.append(response)
                     }
+                    self.save(summary: response)
                 } catch {
                     print("Failed to fetch summary for a chapter: \(error)")
                 }
@@ -77,6 +92,31 @@ final class SummaryInteractor: ObservableObject {
             } catch {
             }
         return "another summary"
+    }
+    
+    private func save(summary: String) {
+        let newData = SummaryData(text: summary)
+        print(modelContext)
+        modelContext?.insert(newData)
+        do {
+            print("save")
+            try modelContext?.save()
+        } catch {
+            print("there was an error")
+            //TODO
+        }
+    }
+        
+    func onAppear() {
+            
+            print(self.contextData)
+            
+            self.contextData.forEach { data in
+                // TODO
+                DispatchQueue.main.async {
+                self.promptParamsModel?.summaries.append(data.text)
+            }
+        }
     }
     
 }

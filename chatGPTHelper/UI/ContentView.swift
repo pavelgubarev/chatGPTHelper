@@ -19,9 +19,10 @@ enum MenuItem: CaseIterable {
 
 struct ContentView: View {
     private let container: DIContainer
-    @State private var selectedItem: MenuItem? = .Read
+    @State private var selectedItem: MenuItem? = .Summary
     @StateObject private var promptParamsModel = PromptParamsModel()
-    
+    @Environment(\.modelContext) private var modelContext
+
     init(container: DIContainer) {
         self.container = container
     }
@@ -47,7 +48,9 @@ struct ContentView: View {
                     .foregroundColor(.gray)
             }
         }.onAppear() {            
+            //TODO перенести
             self.container.interactors.summary.configure(promptParamsModel: promptParamsModel)
+            self.container.interactors.summary.modelContext = modelContext
         }
     }
 }
