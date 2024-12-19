@@ -15,7 +15,9 @@ struct DIContainer: EnvironmentKey {
     private static let `default` = Self()
     
     let interactors: Interactors
-    let repository: Repository
+    let webRepository: WebRepository
+    let localRepository: LocalRepository
+    
     //
     //    func assemble() -> DIContainer {
     //        let repository = Repository()
@@ -29,10 +31,18 @@ struct DIContainer: EnvironmentKey {
     //    }
     
     init() {
-        self.repository = Repository()
+        self.webRepository = WebRepository()
+        self.localRepository = LocalRepository()
         
         self.interactors = .init(
-            summary: SummaryInteractor(repository: self.repository)
+            summary: SummaryInteractor(
+                webRepository: self.webRepository,
+                localRepository: self.localRepository
+            ),
+            quote: QuoteInteractor(
+                webRepository: self.webRepository,
+                localRepository: self.localRepository
+            )
         )
     }
 }
@@ -46,6 +56,7 @@ extension EnvironmentValues {
 
 struct Interactors {
     let summary: SummaryInteractor
+    let quote: QuoteInteractor
 }
 
 extension View {

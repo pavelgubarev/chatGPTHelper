@@ -6,12 +6,8 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct SummaryView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var contextData: [SummaryData]
-
     @Environment(\.injected) private var dependencies: DIContainer
     @EnvironmentObject private var promptParamsModel: PromptParamsModel
     
@@ -21,34 +17,37 @@ struct SummaryView: View {
     
     var body: some View {
         VStack {
-            Button("Get All The Summaries") {
+            Button("Update All The Summaries") {
                 dependencies.interactors.summary.setupText()
                 dependencies.interactors.summary.requestAllSummaries()
             }.padding()
             ScrollView {
-                LazyVGrid(columns: columns, spacing: 10) {
+                LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(promptParamsModel.summaries, id: \.self) { summary in
-                        scrollableTextCard(text: summary)
+                        scrollableTextCard(text: summary.text)
                     }
                 }
                 .padding()
             }
         }
         .onAppear() {
-            print(self.contextData)
+            print("onappear")
+            //TODO не читаем из локали, если массив непустой
+            dependencies.interactors.summary.onAppear()
         }
     }
     
     private func scrollableTextCard(text: String) -> some View {
-        return ScrollView(showsIndicators: false) {
-            Text(text)
-                .padding(12)
-                .frame(maxWidth: .infinity, alignment: .leading)
+        ZStack {
+            Color.blue.opacity(0.3)
+                .cornerRadius(10)
+            ScrollView(showsIndicators: false) {
+                Text(text)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .frame(maxWidth: .infinity, minHeight: 100, maxHeight: 200)
+            .padding(12)
         }
-        .frame(maxWidth: .infinity, minHeight: 100, maxHeight: 200)
-        .background(Color.blue.opacity(0.3))
-        .padding(12)
-        .clipShape(RoundedRectangle(cornerRadius: 8))
     }
 }
 

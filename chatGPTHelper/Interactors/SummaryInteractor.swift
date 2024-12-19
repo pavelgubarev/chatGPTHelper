@@ -9,37 +9,29 @@ import Foundation
 import SwiftUI
 import SwiftData
 
-@Model
-final class SummaryData {
-    @Attribute(.unique) var id: UUID
-    var text: String
-    
-    init(text: String) {
-        self.id = UUID()
-        self.text = text
-    }
-}
-
 final class SummaryInteractor: ObservableObject {
-    
-    @Query private var contextData: [SummaryData]
+
+    let webRepository: WebRepository
+    let localRepository: LocalRepository
+
     var modelContext: ModelContext?
 
-    let repository: Repository
-    
-    var wholeText: String = ""
-    var chapters = [String]()
-    
     private var promptParamsModel: PromptParamsModel?
 
-    init(repository: Repository) {
-        self.repository = repository
+    var wholeText: String = ""
+    
+    
+    init(webRepository: WebRepository, localRepository: LocalRepository) {
+        self.webRepository = webRepository
+        self.localRepository = localRepository
     }
     
     func configure(promptParamsModel: PromptParamsModel) {
         self.promptParamsModel = promptParamsModel
     }
-
+    
+    //TODO вынести в хелпер
+    @MainActor
     func setupText() {
         do {
             if let fileURL = Bundle.main.url(forResource: "Katya", withExtension: "txt") {
@@ -50,72 +42,40 @@ final class SummaryInteractor: ObservableObject {
         } catch {
             print("Error reading file: \(error)")
         }
-        chapters = wholeText.components(separatedBy: "##").filter { $0.count > 10 }
-    }
-    
-    @MainActor
-    func buildRequestForAQuote(_ promptParamsModel: PromptParamsModel) -> String? {
-        guard let chapter = chapters.randomElement() else { return nil }
-        
-        return promptParamsModel.context + chapter
+        promptParamsModel?.chapters = wholeText.components(separatedBy: "##").filter { $0.count > 10 }
     }
     
     @MainActor
     func requestAllSummaries() {
         DispatchQueue.main.async {
-            // TODO: добавить очистку в хранилище
+            self.localRepository.deleteAllSummaries()
             self.promptParamsModel?.summaries = []
         }
         Task {
-            for chapter in chapters.prefix(10) {
-                async let result = repository.fetchChatGPTResponse(prompt: "Пожалуйста, сделай краткое содержание этой главы, начни с названия главы и перечисли основные события списком: " + chapter)
-
-//                async let result = fakeQ()
+            guard let chapters = promptParamsModel?.chapters else { return }
+            
+            for (index, chapter) in chapters.enumerated().prefix(2) {
+                async let result = webRepository.fetchChatGPTResponse(prompt: "Пожалуйста, сделай краткое содержание этой главы, начни с названия главы и перечисли основные события списком: " + chapter)
                 
                 do {
                     let response = try await result
+                    let summaryObject = SummaryData(chapterNumber: index, text: response)
                     DispatchQueue.main.async {
                         print("append")
-                        self.promptParamsModel?.summaries.append(response)
+                        self.promptParamsModel?.summaries.append(summaryObject)
+                        self.localRepository.save(summaryObject)
                     }
-                    self.save(summary: response)
                 } catch {
                     print("Failed to fetch summary for a chapter: \(error)")
                 }
             }
         }
     }
-    
-    func fakeQ() async throws -> String {
-        do {
-                try await Task.sleep(nanoseconds: 2_000_000_000) // 2 seconds
-            } catch {
-            }
-        return "another summary"
-    }
-    
-    private func save(summary: String) {
-        let newData = SummaryData(text: summary)
-        print(modelContext)
-        modelContext?.insert(newData)
-        do {
-            print("save")
-            try modelContext?.save()
-        } catch {
-            print("there was an error")
-            //TODO
-        }
-    }
-        
+          
     func onAppear() {
-            
-            print(self.contextData)
-            
-            self.contextData.forEach { data in
-                // TODO
-                DispatchQueue.main.async {
-                self.promptParamsModel?.summaries.append(data.text)
-            }
+        guard let result = localRepository.fetchSummaries() else { return }
+        DispatchQueue.main.async {
+            self.promptParamsModel?.summaries = result
         }
     }
     

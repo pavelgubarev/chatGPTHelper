@@ -34,7 +34,23 @@ struct ChatGPTResponse: Codable {
     let error: APIError?
 }
 
-final class Repository {
+// Define the structure of your request body for image generation
+struct ImageGenerationRequest: Codable {
+    let prompt: String
+    let n: Int
+    let size: String
+}
+
+// Define the structure of the response
+struct ImageGenerationResponse: Codable {
+    struct Data: Codable {
+        let url: String
+    }
+    let data: [Data]
+    let error: APIError?
+}
+
+final class WebRepository {
     // Async function to call ChatGPT API
     func fetchChatGPTResponse(prompt: String) async throws -> String {
         
@@ -72,7 +88,7 @@ final class Repository {
         if let httpResponse = response as? HTTPURLResponse {
             print("HTTP Status Code: \(httpResponse.statusCode)")
         }
-        //    print("Raw Response Data: \(String(data: data, encoding: .utf8) ?? "No response body")")
+            print("Raw Response Data: \(String(data: data, encoding: .utf8) ?? "No response body")")
         
         let decodedResponse = try JSONDecoder().decode(ChatGPTResponse.self, from: data)
         
@@ -81,5 +97,50 @@ final class Repository {
         }
         
         return decodedResponse.choices.first?.message.content ?? "No response received."
+    }
+    
+    func fetchChatGPTImageResponse(prompt: String) async throws -> String {
+        
+        @EnvironmentObject var promptParamsModel: PromptParamsModel
+        
+        //    guard !promptParamsModel.isMockEnabled else {
+        //        return promptParamsModel.mockText
+        //    }
+        
+        // Your API URL and Key
+        let apiURL = "https://api.openai.com/v1/images/generations"
+        
+        
+        // Prepare the request body
+            let requestBody = ImageGenerationRequest(
+                prompt: prompt,
+                n: 1, // Number of images to generate
+                size: "1024x1024" // Image size: "256x256", "512x512", or "1024x1024"
+            )
+        
+        // Encode the request body to JSON
+        let jsonData = try JSONEncoder().encode(requestBody)
+        
+        // Create a URL request
+        var request = URLRequest(url: URL(string: apiURL)!)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("Bearer \(Constants.APIKey)", forHTTPHeaderField: "Authorization")
+        request.httpBody = jsonData
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        if let httpResponse = response as? HTTPURLResponse {
+            print("HTTP Status Code: \(httpResponse.statusCode)")
+        }
+            print("Raw Response Data: \(String(data: data, encoding: .utf8) ?? "No response body")")
+        
+        // Decode the response
+        let decodedResponse = try JSONDecoder().decode(ImageGenerationResponse.self, from: data)
+        if let error = decodedResponse.error {
+            throw NSError(domain: "OpenAIAPI", code: 0, userInfo: [NSLocalizedDescriptionKey: error.message])
+        }
+        
+        return decodedResponse.data.first?.url ?? "No image URL received."
     }
 }
