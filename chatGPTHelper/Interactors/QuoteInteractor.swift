@@ -20,10 +20,11 @@ final class QuoteInteractor {
     var chapter = ""
     
     private var promptParamsModel: PromptParamsModel?
+    
+    @Published var imageURL: String = ""
 
     @MainActor
-    func requestQuoteAndIllustration() {
-        Task {
+    func requestQuoteAndIllustration() async -> String {
             let quote = await requestQuote()
             
             let prompt = "Сделай иллюстрацию для этой цитаты: " + quote + "  Вот тебе для контекста текст, из которого цитата: " + chapter
@@ -33,13 +34,13 @@ final class QuoteInteractor {
             do {
                 let response = try await result
                 print(response)
+                return response
             } catch {
                 print("Failed to fetch summary for a chapter: \(error)")
+                return ""
             }
-        }
-        
     }
-
+    
     
     @MainActor
     private func requestQuote() async -> String {

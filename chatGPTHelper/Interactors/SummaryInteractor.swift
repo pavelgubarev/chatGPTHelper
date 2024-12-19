@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import SwiftData
 
-final class SummaryInteractor: ObservableObject {
+final class SummaryInteractor {
 
     let webRepository: WebRepository
     let localRepository: LocalRepository
