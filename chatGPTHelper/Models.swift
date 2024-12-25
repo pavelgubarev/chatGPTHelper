@@ -31,3 +31,20 @@ final class SummaryData {
         self.text = text
     }
 }
+
+
+@Model
+final class IllustrationContainer {
+    @Attribute(.unique) var id: UUID
+
+    var quote: String = ""
+    var prompt: String = ""
+    var imageURL: String = ""
+        
+    init(quote: String = "", prompt: String = "", imageURL: String = "") {
+        self.id = UUID()
+        self.quote = quote
+        self.prompt = prompt
+        self.imageURL = imageURL
+    }
+}

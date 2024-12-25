@@ -21,7 +21,7 @@
 		506EF7E02D0AE31200FDD5CA /* chatGPTHelperUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7DF2D0AE31200FDD5CA /* chatGPTHelperUITests.swift */; };
 		506EF7E22D0AE31200FDD5CA /* chatGPTHelperUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7E12D0AE31200FDD5CA /* chatGPTHelperUITestsLaunchTests.swift */; };
 		506EF7EF2D0AEA5600FDD5CA /* ReadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7EE2D0AEA5600FDD5CA /* ReadView.swift */; };
-		506EF7F12D0AEF6000FDD5CA /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7F02D0AEF6000FDD5CA /* Repository.swift */; };
+		506EF7F12D0AEF6000FDD5CA /* WebRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7F02D0AEF6000FDD5CA /* WebRepository.swift */; };
 		506EF7F32D0B231000FDD5CA /* ContextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7F22D0B231000FDD5CA /* ContextView.swift */; };
 		506EF7F52D10562100FDD5CA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7F42D10562100FDD5CA /* SettingsView.swift */; };
 		506EF7F72D10647300FDD5CA /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7F62D10647300FDD5CA /* Settings.swift */; };
@@ -65,7 +65,7 @@
 		506EF7DF2D0AE31200FDD5CA /* chatGPTHelperUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatGPTHelperUITests.swift; sourceTree = "<group>"; };
 		506EF7E12D0AE31200FDD5CA /* chatGPTHelperUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatGPTHelperUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		506EF7EE2D0AEA5600FDD5CA /* ReadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadView.swift; sourceTree = "<group>"; };
-		506EF7F02D0AEF6000FDD5CA /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		506EF7F02D0AEF6000FDD5CA /* WebRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRepository.swift; sourceTree = "<group>"; };
 		506EF7F22D0B231000FDD5CA /* ContextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextView.swift; sourceTree = "<group>"; };
 		506EF7F42D10562100FDD5CA /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		506EF7F62D10647300FDD5CA /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -123,7 +123,7 @@
 		5006EBCC2D142388006DB6C1 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				506EF7F02D0AEF6000FDD5CA /* Repository.swift */,
+				506EF7F02D0AEF6000FDD5CA /* WebRepository.swift */,
 				5006EBCA2D141D3C006DB6C1 /* LocalRepository.swift */,
 			);
 			path = Repositories;
@@ -326,7 +326,7 @@
 				506EF7F32D0B231000FDD5CA /* ContextView.swift in Sources */,
 				5006EBC72D12DFF4006DB6C1 /* Assembly.swift in Sources */,
 				506EF7C42D0AE31000FDD5CA /* ContentView.swift in Sources */,
-				506EF7F12D0AEF6000FDD5CA /* Repository.swift in Sources */,
+				506EF7F12D0AEF6000FDD5CA /* WebRepository.swift in Sources */,
 				506EF7F52D10562100FDD5CA /* SettingsView.swift in Sources */,
 				5006EBD02D144671006DB6C1 /* QuoteInteractor.swift in Sources */,
 				506EF7F72D10647300FDD5CA /* Settings.swift in Sources */,

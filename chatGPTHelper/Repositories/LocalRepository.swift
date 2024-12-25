@@ -15,14 +15,13 @@ final class LocalRepository {
 //        self.modelContext = modelContext
 //    }
 
-    func fetchSummaries() -> [SummaryData]? {
-        let fetchRequest = FetchDescriptor<SummaryData>()
+    func fetch<T: PersistentModel>() -> [T]? {
+        let fetchRequest = FetchDescriptor<T>()
         do {
             let result = try modelContext?.fetch(fetchRequest)
             return result
-            
         } catch {
-            print("Failed to fetch summaries: \(error)")
+            print("Failed to fetch \(T.self): \(error)")
             return nil
         }
     }
@@ -35,20 +34,49 @@ final class LocalRepository {
         }
     }
     
-    func save(_ summaryObject: SummaryData) {
+    func save<T: PersistentModel>(_ object: T) {
         guard let modelContext else {
             assertionFailure("No context for saving data")
             return
         }
-                
-        modelContext.insert(summaryObject)
+        
+        modelContext.insert(object)
         do {
-            print("save")
+            print("Saving object: \(object)")
             try modelContext.save()
         } catch {
-            print("there was an error")
-            //TODO
+            print("Failed to save object: \(error)")
+            // TODO: Handle error properly (e.g., error reporting or retry logic)
         }
-    }
+    }    
     
+    func downloadAndSaveImage(from url: String, completion: @escaping (String?) -> Void) {
+        guard let url = URL(string: url) else { return }
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error downloading image: \(error)")
+                completion(nil)
+                return
+            }
+
+            guard let data = data else {
+                print("Invalid image data")
+                completion(nil)
+                return
+            }
+
+            do {
+                let filename = UUID().uuidString + ".jpg"
+                let fileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                    .appendingPathComponent(filename)
+                try data.write(to: fileURL)
+                print("Image saved locally at: \(fileURL.path)")
+                completion(fileURL.path)
+            } catch {
+                print("Failed to save image: \(error)")
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
 }

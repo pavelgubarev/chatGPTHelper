@@ -27,6 +27,6 @@ struct chatGPTHelperApp: App {
         WindowGroup {
             ContentView(container: DIContainer())
         }
-        .modelContainer(for: [ContextData.self, MockedResponseData.self, SummaryData.self])
+        .modelContainer(for: [ContextData.self, MockedResponseData.self, SummaryData.self, IllustrationContainer.self])
     }
 }

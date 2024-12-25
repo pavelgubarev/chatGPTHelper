@@ -51,6 +51,7 @@ struct ContentView: View {
             //TODO перенести
             self.container.interactors.summary.configure(promptParamsModel: promptParamsModel)
             self.container.interactors.quote.configure(promptParamsModel: promptParamsModel)
+            self.container.webRepository.configure(promptParamsModel: promptParamsModel)
             self.container.localRepository.modelContext = modelContext
         }
     }
@@ -69,7 +70,7 @@ struct DetailView: View {
             case .Summary:
                 SummaryView()
             case .Quote:
-                QuoteView()
+                QuoteView(interactor: dependencies.interactors.quote)
             case .Context:
                 ContextView()
             case .Settings:
