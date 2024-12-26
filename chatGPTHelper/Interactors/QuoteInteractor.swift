@@ -136,7 +136,6 @@ final class QuoteInteractor: ObservableObject {
         DispatchQueue.main.async {
             for illustration in result {
                 self.illustrations.append( Illustration(quote: illustration.quote, prompt: illustration.prompt, imageURL: illustration.imageURL))
-                print(illustration.imageURL)
             }
         }
     }

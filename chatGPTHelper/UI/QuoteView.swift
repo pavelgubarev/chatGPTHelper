@@ -25,47 +25,38 @@ struct QuoteView: View {
     }
     
     var body: some View {
-        VStack {
-            
-            
-            Button("Цитата") {
-                                
+        VStack {                        
+            Button("Add Quote") {
                 Task {
                     //Вынести повторку
                     dependencies.interactors.summary.setupText()
                     await dependencies.interactors.quote.didTapGetIllustration()
                 }
             }
-//                       
-//            AsyncImage(url: URL(string: interactor.illustration.imageURL)) { image in
-//                image
-//                    .resizable()
-//                    .frame(width: 800, height: 800)
-//            } placeholder: {
-//                Color.white
-//            }
-            .clipShape(.rect(cornerRadius: 25))
             
-                        ScrollView {
-                            LazyVGrid(columns: columns, spacing: 20) {
-                                ForEach(interactor.illustrations, id: \.quote) { illustration in
-                                    VStack {
-                                        Text(illustration.quote)
-                                        Text("file://"+illustration.imageURL)
-                                        AsyncImage(
-                                            url: URL(string: "file://"+illustration.imageURL),
-                                            content: { image in                                                
-                                            image
-                                                .resizable()
-                                                .frame(width: 200, height: 200)
-                                        }, placeholder: {
-                                            Color.white
-                                        })
-                                    }
-                                }
+            ScrollView {
+                LazyVGrid(columns: columns, spacing: 20) {
+                    ForEach(interactor.illustrations, id: \.quote) { illustration in
+                        VStack {
+                            Text(illustration.quote)
+                            
+                            if let imageData = try? Data(contentsOf: URL(
+                                string: "file://" + illustration.imageURL)!
+                            ),
+                               let image = Image(data: imageData) {
+                                image
+                                    .resizable()
+                                    .scaledToFit()
+                                    .cornerRadius(20)
+                            } else {
+                                Text("Image not found")
+                                    .foregroundColor(.gray)
                             }
-                            .padding()
                         }
+                    }
+                }
+                .padding()
+            }
         }.onAppear {
             interactor.onAppear()
         }
@@ -74,4 +65,14 @@ struct QuoteView: View {
 
 #Preview {
     SummaryView()
+}
+
+extension Image {
+    init?(data: Data) {
+        guard let cgImage = CGImageSourceCreateWithData(data as CFData, nil)
+            .flatMap({ CGImageSourceCreateImageAtIndex($0, 0, nil) }) else {
+            return nil
+        }
+        self.init(decorative: cgImage, scale: 1.0)
+    }
 }
