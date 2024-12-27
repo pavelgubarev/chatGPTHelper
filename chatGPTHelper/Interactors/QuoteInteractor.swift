@@ -7,13 +7,25 @@
 
 import Foundation
     
-struct Illustration: Equatable, Hashable {
-    var quote: String = ""
-    var prompt: String = ""
-    var imageURL: String = ""
+class Illustration: ObservableObject, Identifiable {
+    let id = UUID()
+    
+    @Published var quote: String
+    @Published var prompt: String
+    @Published var imageURL: String
+    
+    init() {
+        quote = ""
+        prompt = ""
+        imageURL = ""
+    }
 }
 
-final class QuoteInteractor: ObservableObject {
+final class IllustrationsViewModel: ObservableObject {
+    @Published var illustrations = [Illustration]()
+}
+
+final class QuoteInteractor {
     
     let webRepository: WebRepository
     let localRepository: LocalRepository
@@ -27,20 +39,21 @@ final class QuoteInteractor: ObservableObject {
     
     private var promptParamsModel: PromptParamsModel?
     
-    @Published var illustrations = [Illustration]()
+    let illustrationsViewModel = IllustrationsViewModel()
     
     @MainActor
     func didTapGetIllustration() async {
-        var illustration = Illustration()
-        self.illustrations.append(illustration)
+        let illustration = Illustration()
+        illustrationsViewModel.illustrations.insert(illustration, at: .zero)
 
         illustration.quote = await requestQuote()
         illustration.prompt = await requestPrompt(quote: illustration.quote)
-        illustration.imageURL = await requestImage(prompt: illustration.prompt)
+        let remoteImageURL = await requestImage(prompt: illustration.prompt)
 
-        self.localRepository.downloadAndSaveImage(from: illustration.imageURL) { localURL in
-            
+        self.localRepository.downloadAndSaveImage(from: remoteImageURL) { localURL in
             guard let localURL else { return }
+            
+            illustration.imageURL = localURL
             
             let illustrationContainer = IllustrationContainer()
             illustrationContainer.quote = illustration.quote
@@ -131,11 +144,15 @@ final class QuoteInteractor: ObservableObject {
     }
     
     func onAppear() {
-        self.illustrations = []
+        illustrationsViewModel.illustrations = []
         guard let result: [IllustrationContainer] = localRepository.fetch() else { return }
         DispatchQueue.main.async {
-            for illustration in result {
-                self.illustrations.append( Illustration(quote: illustration.quote, prompt: illustration.prompt, imageURL: illustration.imageURL))
+            for savedItem in result {
+                let illustration = Illustration()
+                illustration.quote = savedItem.quote
+                illustration.prompt = savedItem.prompt
+                illustration.imageURL = savedItem.imageURL
+                self.illustrationsViewModel.illustrations.insert(illustration, at: .zero)
             }
         }
     }

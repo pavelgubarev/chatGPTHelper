@@ -34,7 +34,7 @@ final class SummaryData {
 
 
 @Model
-final class IllustrationContainer {
+final class IllustrationContainer: ObservableObject, Identifiable {
     @Attribute(.unique) var id: UUID
 
     var quote: String = ""

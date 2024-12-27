@@ -32,10 +32,9 @@ struct ContextView: View {
             TextEditor(text: $promptParamsModel.context)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
-                .onChange(of: promptParamsModel.context, {
+                .onChange(of: promptParamsModel.context) {
                     saveText()
                 }
-                )
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {

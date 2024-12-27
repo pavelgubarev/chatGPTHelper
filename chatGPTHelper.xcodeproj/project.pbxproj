@@ -13,6 +13,7 @@
 		5006EBCB2D141D3C006DB6C1 /* LocalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5006EBCA2D141D3C006DB6C1 /* LocalRepository.swift */; };
 		5006EBCE2D1430C0006DB6C1 /* QuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5006EBCD2D1430C0006DB6C1 /* QuoteView.swift */; };
 		5006EBD02D144671006DB6C1 /* QuoteInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5006EBCF2D144671006DB6C1 /* QuoteInteractor.swift */; };
+		506442792D1EB51C0023E44E /* ContentViewInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506442782D1EB51C0023E44E /* ContentViewInteractor.swift */; };
 		506EF7C22D0AE31000FDD5CA /* chatGPTHelperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7C12D0AE31000FDD5CA /* chatGPTHelperApp.swift */; };
 		506EF7C42D0AE31000FDD5CA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7C32D0AE31000FDD5CA /* ContentView.swift */; };
 		506EF7C82D0AE31200FDD5CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 506EF7C72D0AE31200FDD5CA /* Assets.xcassets */; };
@@ -53,6 +54,7 @@
 		5006EBCA2D141D3C006DB6C1 /* LocalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRepository.swift; sourceTree = "<group>"; };
 		5006EBCD2D1430C0006DB6C1 /* QuoteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuoteView.swift; sourceTree = "<group>"; };
 		5006EBCF2D144671006DB6C1 /* QuoteInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteInteractor.swift; sourceTree = "<group>"; };
+		506442782D1EB51C0023E44E /* ContentViewInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewInteractor.swift; sourceTree = "<group>"; };
 		506EF7BE2D0AE31000FDD5CA /* chatGPTHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chatGPTHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		506EF7C12D0AE31000FDD5CA /* chatGPTHelperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatGPTHelperApp.swift; sourceTree = "<group>"; };
 		506EF7C32D0AE31000FDD5CA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 			children = (
 				506EF7FA2D106FE000FDD5CA /* SummaryInteractor.swift */,
 				5006EBCF2D144671006DB6C1 /* QuoteInteractor.swift */,
+				506442782D1EB51C0023E44E /* ContentViewInteractor.swift */,
 			);
 			path = Interactors;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				506EF7F72D10647300FDD5CA /* Settings.swift in Sources */,
 				506EF7EF2D0AEA5600FDD5CA /* ReadView.swift in Sources */,
 				5006EBCB2D141D3C006DB6C1 /* LocalRepository.swift in Sources */,
+				506442792D1EB51C0023E44E /* ContentViewInteractor.swift in Sources */,
 				5006EBCE2D1430C0006DB6C1 /* QuoteView.swift in Sources */,
 				506EF7FB2D106FE000FDD5CA /* SummaryInteractor.swift in Sources */,
 				506EF7C22D0AE31000FDD5CA /* chatGPTHelperApp.swift in Sources */,

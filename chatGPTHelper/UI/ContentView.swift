@@ -51,6 +51,7 @@ struct ContentView: View {
             //TODO перенести
             self.container.interactors.summary.configure(promptParamsModel: promptParamsModel)
             self.container.interactors.quote.configure(promptParamsModel: promptParamsModel)
+            self.container.interactors.contentView.configure(promptParamsModel: promptParamsModel)
             self.container.webRepository.configure(promptParamsModel: promptParamsModel)
             self.container.localRepository.modelContext = modelContext
         }
@@ -80,6 +81,10 @@ struct DetailView: View {
             }
         }.environmentObject(promptParamsModel)
             .inject(dependencies)
+            .onAppear {
+                dependencies.interactors.contentView.onAppear()
+                print(promptParamsModel.context)
+            }
     }
 }
 
