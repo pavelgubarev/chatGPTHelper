@@ -34,6 +34,10 @@ struct DIContainer: EnvironmentKey {
             contentView: ContentViewInteractor(
                 webRepository: self.webRepository,
                 localRepository: self.localRepository
+            ),
+            illDetail: IllustrationDetailViewInteractor(
+                webRepository: self.webRepository,
+                localRepository: self.localRepository
             )
         )
     }
@@ -57,6 +61,7 @@ struct Interactors {
     let summary: SummaryInteractor
     let quote: QuoteInteractor
     let contentView: ContentViewInteractor
+    let illDetail: IllustrationDetailViewInteractor
 }
 
 extension View {

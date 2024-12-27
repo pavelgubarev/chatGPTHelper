@@ -12,6 +12,7 @@ struct QuoteView: View {
     @EnvironmentObject private var promptParamsModel: PromptParamsModel
     
     @StateObject private var illustrations: IllustrationsViewModel
+    @Binding var navigationPath: NavigationPath
     
     let columns = [
         GridItem(.adaptive(minimum: 300))
@@ -20,8 +21,9 @@ struct QuoteView: View {
     @State private var imageURL: String = ""
     @State private var quote: String = ""
     
-    init(interactor: QuoteInteractor) {
+    init(interactor: QuoteInteractor, navigationPath: Binding<NavigationPath>) {
         self._illustrations = StateObject(wrappedValue: interactor.illustrationsViewModel)
+        self._navigationPath = navigationPath
     }
     
     var body: some View {
@@ -33,11 +35,15 @@ struct QuoteView: View {
                     await dependencies.interactors.quote.didTapGetIllustration()
                 }
             }.padding()
-            
+           
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(illustrations.illustrations, id: \.id) { illustration in
-                       IllustrationView(illustration: illustration)
+                        IllustrationView(illustration: illustration)
+                            .onTapGesture {
+                                //TODO
+                                navigationPath.append(IllustrationDetailViewData(id: illustration.persistentID!))
+                            }
                     }
                 }
                 .padding()
@@ -55,7 +61,7 @@ struct IllustrationView: View {
         VStack {
             Text(illustration.quote)
             
-            if illustration.imageURL != "" {                
+            if illustration.imageURL != "" {
                 if let imageData = try? Data(contentsOf: URL(
                     string: "file://" + illustration.imageURL)!
                 ),
@@ -64,6 +70,7 @@ struct IllustrationView: View {
                         .resizable()
                         .scaledToFit()
                         .cornerRadius(20)
+                    
                 } else {
                     Text("Image not found")
                         .foregroundColor(.gray)

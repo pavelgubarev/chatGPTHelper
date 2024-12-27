@@ -10,24 +10,6 @@ import SwiftUI
 import SwiftData
 
 final class SummaryInteractor: Interactor {
-    var modelContext: ModelContext?
-
-    var wholeText: String = ""
-        
-    //TODO вынести в хелпер
-    @MainActor
-    func setupText() {
-        do {
-            if let fileURL = Bundle.main.url(forResource: "Katya", withExtension: "txt") {
-                wholeText = try String(contentsOf: fileURL, encoding: .utf8)
-            } else {
-                print("File not found in the bundle.")
-            }
-        } catch {
-            print("Error reading file: \(error)")
-        }
-        promptParamsModel?.chapters = wholeText.components(separatedBy: "##").filter { $0.count > 10 }
-    }
     
     @MainActor
     func requestAllSummaries() {
@@ -35,7 +17,8 @@ final class SummaryInteractor: Interactor {
             self.localRepository.deleteAllSummaries()
             self.promptParamsModel?.summaries = []
         }
-        Task {
+        Task {            
+            setupText()
             guard let chapters = promptParamsModel?.chapters else { return }
             
             for (index, chapter) in chapters.enumerated().prefix(2) {

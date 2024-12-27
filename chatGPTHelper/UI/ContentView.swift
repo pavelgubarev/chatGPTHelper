@@ -20,7 +20,8 @@ struct ContentView: View {
     @State private var selectedItem: MenuItem? = .Quote
     @StateObject private var promptParamsModel = PromptParamsModel()
     @Environment(\.modelContext) private var modelContext
-
+    @State private var navigationPath = NavigationPath()
+    
     init(container: DIContainer) {
         self.container = container
     }
@@ -34,18 +35,19 @@ struct ContentView: View {
             .frame(minWidth: 200)
             .navigationTitle("Menu")
         } detail: {
-            // Detail View
-            if let selectedItem = selectedItem {
-                //TODO перенести инжект?
-                DetailView(selectedItem: selectedItem)
-                    .environmentObject(promptParamsModel)
-                    .inject(container)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            } else {
-                Text("Select an item")
-                    .foregroundColor(.gray)
+            NavigationStack(path: $navigationPath) {
+                if let selectedItem = selectedItem {
+                    //TODO перенести инжект?
+                    DetailView(selectedItem: selectedItem, navigationPath: $navigationPath)
+                        .environmentObject(promptParamsModel)
+                        .inject(container)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else {
+                    Text("Select an item")
+                        .foregroundColor(.gray)
+                }
             }
-        }.onAppear() {            
+        }.onAppear() {
             //TODO перенести
             container.set(promptParamsModel: promptParamsModel)
             self.container.localRepository.modelContext = modelContext
@@ -53,10 +55,15 @@ struct ContentView: View {
     }
 }
 
+struct IllustrationDetailViewData: Hashable {
+    let id: PersistentIdentifier
+}
+
 struct DetailView: View {
     let selectedItem: MenuItem
     @EnvironmentObject private var promptParamsModel: PromptParamsModel
     @Environment(\.injected) private var dependencies: DIContainer
+    @Binding var navigationPath: NavigationPath
     
     var body: some View {
         Group {
@@ -64,7 +71,7 @@ struct DetailView: View {
             case .Summary:
                 SummaryView()
             case .Quote:
-                QuoteView(interactor: dependencies.interactors.quote)
+                QuoteView(interactor: dependencies.interactors.quote, navigationPath: $navigationPath)
             case .Context:
                 ContextView()
             case .Settings:
@@ -75,6 +82,9 @@ struct DetailView: View {
             .onAppear {
                 dependencies.interactors.contentView.onAppear()
                 print(promptParamsModel.context)
+            }
+            .navigationDestination(for: IllustrationDetailViewData.self) { illustrationData in
+                IllustrationDetailView(data: illustrationData).inject(dependencies)
             }
     }
 }

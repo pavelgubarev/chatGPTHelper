@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftData
     
 class Illustration: ObservableObject, Identifiable {
     let id = UUID()
@@ -13,6 +14,7 @@ class Illustration: ObservableObject, Identifiable {
     @Published var quote: String
     @Published var prompt: String
     @Published var imageURL: String
+    var persistentID: PersistentIdentifier?
     
     init() {
         quote = ""
@@ -97,7 +99,7 @@ final class QuoteInteractor: Interactor {
     @MainActor
     func requestQuote() async -> String {
         var usedQuotes = ""
-        //TODO: remove
+        //TODO: remove prefix
         _ = illustrationsViewModel.illustrations.map { usedQuotes = usedQuotes + $0.quote.prefix(200) + ", " }
         
         guard let chapter = promptParamsModel?.chapters.randomElement() else { return "" }
@@ -145,8 +147,11 @@ final class QuoteInteractor: Interactor {
                 illustration.quote = savedItem.quote
                 illustration.prompt = savedItem.prompt
                 illustration.imageURL = savedItem.imageURL
+                illustration.persistentID = savedItem.persistentModelID
                 self.illustrationsViewModel.illustrations.insert(illustration, at: .zero)
             }
         }
     }
 }
+
+

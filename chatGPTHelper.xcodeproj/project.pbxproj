@@ -15,6 +15,8 @@
 		5006EBD02D144671006DB6C1 /* QuoteInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5006EBCF2D144671006DB6C1 /* QuoteInteractor.swift */; };
 		506442792D1EB51C0023E44E /* ContentViewInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506442782D1EB51C0023E44E /* ContentViewInteractor.swift */; };
 		5064427B2D1EC9880023E44E /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5064427A2D1EC9880023E44E /* Interactor.swift */; };
+		5064427D2D1F0FFD0023E44E /* IllustrationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5064427C2D1F0FFD0023E44E /* IllustrationDetailView.swift */; };
+		5064427F2D1F13BE0023E44E /* IllustrationDetailViewInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5064427E2D1F13BE0023E44E /* IllustrationDetailViewInteractor.swift */; };
 		506EF7C22D0AE31000FDD5CA /* chatGPTHelperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7C12D0AE31000FDD5CA /* chatGPTHelperApp.swift */; };
 		506EF7C42D0AE31000FDD5CA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7C32D0AE31000FDD5CA /* ContentView.swift */; };
 		506EF7C82D0AE31200FDD5CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 506EF7C72D0AE31200FDD5CA /* Assets.xcassets */; };
@@ -56,6 +58,8 @@
 		5006EBCF2D144671006DB6C1 /* QuoteInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteInteractor.swift; sourceTree = "<group>"; };
 		506442782D1EB51C0023E44E /* ContentViewInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewInteractor.swift; sourceTree = "<group>"; };
 		5064427A2D1EC9880023E44E /* Interactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
+		5064427C2D1F0FFD0023E44E /* IllustrationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IllustrationDetailView.swift; sourceTree = "<group>"; };
+		5064427E2D1F13BE0023E44E /* IllustrationDetailViewInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IllustrationDetailViewInteractor.swift; sourceTree = "<group>"; };
 		506EF7BE2D0AE31000FDD5CA /* chatGPTHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chatGPTHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		506EF7C12D0AE31000FDD5CA /* chatGPTHelperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatGPTHelperApp.swift; sourceTree = "<group>"; };
 		506EF7C32D0AE31000FDD5CA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -108,6 +112,7 @@
 				5006EBCD2D1430C0006DB6C1 /* QuoteView.swift */,
 				506EF7F42D10562100FDD5CA /* SettingsView.swift */,
 				506EF7F22D0B231000FDD5CA /* ContextView.swift */,
+				5064427C2D1F0FFD0023E44E /* IllustrationDetailView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -119,6 +124,7 @@
 				506EF7FA2D106FE000FDD5CA /* SummaryInteractor.swift */,
 				5006EBCF2D144671006DB6C1 /* QuoteInteractor.swift */,
 				506442782D1EB51C0023E44E /* ContentViewInteractor.swift */,
+				5064427E2D1F13BE0023E44E /* IllustrationDetailViewInteractor.swift */,
 			);
 			path = Interactors;
 			sourceTree = "<group>";
@@ -333,6 +339,7 @@
 				506EF7F52D10562100FDD5CA /* SettingsView.swift in Sources */,
 				5006EBD02D144671006DB6C1 /* QuoteInteractor.swift in Sources */,
 				506EF7F72D10647300FDD5CA /* Settings.swift in Sources */,
+				5064427F2D1F13BE0023E44E /* IllustrationDetailViewInteractor.swift in Sources */,
 				5006EBCB2D141D3C006DB6C1 /* LocalRepository.swift in Sources */,
 				506442792D1EB51C0023E44E /* ContentViewInteractor.swift in Sources */,
 				5006EBCE2D1430C0006DB6C1 /* QuoteView.swift in Sources */,
@@ -341,6 +348,7 @@
 				506EF7C22D0AE31000FDD5CA /* chatGPTHelperApp.swift in Sources */,
 				5006EBC32D119602006DB6C1 /* SummaryView.swift in Sources */,
 				5006EBC52D11A3BC006DB6C1 /* Models.swift in Sources */,
+				5064427D2D1F0FFD0023E44E /* IllustrationDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

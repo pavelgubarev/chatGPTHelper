@@ -26,6 +26,16 @@ final class LocalRepository {
         }
     }
     
+    func fetch<T: PersistentModel>(withID id: PersistentIdentifier) -> T? where T: Identifiable {
+        do {
+            let result = modelContext?.model(for: id) as? T
+            return result
+        } catch {
+            print("Failed to fetch \(T.self): \(error)")
+            return nil
+        }
+    }
+    
     func deleteAllSummaries() {
         do {
             try modelContext?.delete(model: SummaryData.self)
