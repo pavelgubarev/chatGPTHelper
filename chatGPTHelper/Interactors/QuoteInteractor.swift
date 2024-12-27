@@ -106,11 +106,15 @@ final class QuoteInteractor {
     
     @MainActor
     func requestQuote() async -> String {
+        var usedQuotes = ""
+        _ = illustrationsViewModel.illustrations.map { usedQuotes = usedQuotes + $0.quote.prefix(200) + ", " }
+        
         guard let chapter = promptParamsModel?.chapters.randomElement() else { return "" }
         
         self.chapter = chapter
         
-        let prompt = (promptParamsModel?.context ?? "") + chapter
+        let prompt = (promptParamsModel?.context ?? "") + chapter + "Далее список цитат, которые ты уже выбирал. Не используй их: " + usedQuotes
+        
         async let result = webRepository.fetchChatGPTResponse(prompt: prompt)
         
         do {
@@ -125,7 +129,10 @@ final class QuoteInteractor {
  
     @MainActor
     private func requestPrompt(quote: String) async -> String {
+        
         let prompt = "Сделай промпт для Dall-e для иллюстрации этой цитаты: " + quote + " Цитата взята из этой главы: " + chapter
+       
+        
         async let result = webRepository.fetchChatGPTResponse(prompt: prompt)
         
         do {

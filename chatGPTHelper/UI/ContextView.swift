@@ -63,7 +63,3 @@ struct ContextView: View {
         }
     }
 }
-
-#Preview {
-    ReadView()
-}

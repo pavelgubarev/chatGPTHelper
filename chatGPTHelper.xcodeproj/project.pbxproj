@@ -21,7 +21,6 @@
 		506EF7D62D0AE31200FDD5CA /* chatGPTHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7D52D0AE31200FDD5CA /* chatGPTHelperTests.swift */; };
 		506EF7E02D0AE31200FDD5CA /* chatGPTHelperUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7DF2D0AE31200FDD5CA /* chatGPTHelperUITests.swift */; };
 		506EF7E22D0AE31200FDD5CA /* chatGPTHelperUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7E12D0AE31200FDD5CA /* chatGPTHelperUITestsLaunchTests.swift */; };
-		506EF7EF2D0AEA5600FDD5CA /* ReadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7EE2D0AEA5600FDD5CA /* ReadView.swift */; };
 		506EF7F12D0AEF6000FDD5CA /* WebRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7F02D0AEF6000FDD5CA /* WebRepository.swift */; };
 		506EF7F32D0B231000FDD5CA /* ContextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7F22D0B231000FDD5CA /* ContextView.swift */; };
 		506EF7F52D10562100FDD5CA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7F42D10562100FDD5CA /* SettingsView.swift */; };
@@ -66,7 +65,6 @@
 		506EF7DB2D0AE31200FDD5CA /* chatGPTHelperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chatGPTHelperUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		506EF7DF2D0AE31200FDD5CA /* chatGPTHelperUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatGPTHelperUITests.swift; sourceTree = "<group>"; };
 		506EF7E12D0AE31200FDD5CA /* chatGPTHelperUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatGPTHelperUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		506EF7EE2D0AEA5600FDD5CA /* ReadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadView.swift; sourceTree = "<group>"; };
 		506EF7F02D0AEF6000FDD5CA /* WebRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRepository.swift; sourceTree = "<group>"; };
 		506EF7F22D0B231000FDD5CA /* ContextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextView.swift; sourceTree = "<group>"; };
 		506EF7F42D10562100FDD5CA /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -103,7 +101,6 @@
 		5006EBC82D12E34C006DB6C1 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				506EF7EE2D0AEA5600FDD5CA /* ReadView.swift */,
 				506EF7C32D0AE31000FDD5CA /* ContentView.swift */,
 				5006EBC22D119602006DB6C1 /* SummaryView.swift */,
 				5006EBCD2D1430C0006DB6C1 /* QuoteView.swift */,
@@ -333,7 +330,6 @@
 				506EF7F52D10562100FDD5CA /* SettingsView.swift in Sources */,
 				5006EBD02D144671006DB6C1 /* QuoteInteractor.swift in Sources */,
 				506EF7F72D10647300FDD5CA /* Settings.swift in Sources */,
-				506EF7EF2D0AEA5600FDD5CA /* ReadView.swift in Sources */,
 				5006EBCB2D141D3C006DB6C1 /* LocalRepository.swift in Sources */,
 				506442792D1EB51C0023E44E /* ContentViewInteractor.swift in Sources */,
 				5006EBCE2D1430C0006DB6C1 /* QuoteView.swift in Sources */,

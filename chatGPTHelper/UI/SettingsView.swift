@@ -93,7 +93,3 @@ struct SettingsView: View {
         }
     }
 }
-
-#Preview {
-    ReadView()
-}

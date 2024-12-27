@@ -9,17 +9,15 @@ import SwiftUI
 import SwiftData
 
 enum MenuItem: CaseIterable {
-    case Read
     case Summary
     case Quote
-    case Images
     case Context
     case Settings
 }
 
 struct ContentView: View {
     private let container: DIContainer
-    @State private var selectedItem: MenuItem? = .Summary
+    @State private var selectedItem: MenuItem? = .Quote
     @StateObject private var promptParamsModel = PromptParamsModel()
     @Environment(\.modelContext) private var modelContext
 
@@ -66,8 +64,6 @@ struct DetailView: View {
     var body: some View {
         Group {
             switch selectedItem {
-            case .Read:
-                ReadView()
             case .Summary:
                 SummaryView()
             case .Quote:
