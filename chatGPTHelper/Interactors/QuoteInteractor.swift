@@ -25,20 +25,10 @@ final class IllustrationsViewModel: ObservableObject {
     @Published var illustrations = [Illustration]()
 }
 
-final class QuoteInteractor {
-    
-    let webRepository: WebRepository
-    let localRepository: LocalRepository
-    
-    init(webRepository: WebRepository, localRepository: LocalRepository) {
-        self.webRepository = webRepository
-        self.localRepository = localRepository
-    }
-    
+final class QuoteInteractor: Interactor {
+
     var chapter = ""
-    
-    private var promptParamsModel: PromptParamsModel?
-    
+        
     let illustrationsViewModel = IllustrationsViewModel()
     
     @MainActor
@@ -107,6 +97,7 @@ final class QuoteInteractor {
     @MainActor
     func requestQuote() async -> String {
         var usedQuotes = ""
+        //TODO: remove
         _ = illustrationsViewModel.illustrations.map { usedQuotes = usedQuotes + $0.quote.prefix(200) + ", " }
         
         guard let chapter = promptParamsModel?.chapters.randomElement() else { return "" }
@@ -144,12 +135,7 @@ final class QuoteInteractor {
         }
         return ""
     }
-    
-    //TODO: Рефакторинг
-    func configure(promptParamsModel: PromptParamsModel) {
-        self.promptParamsModel = promptParamsModel
-    }
-    
+
     func onAppear() {
         illustrationsViewModel.illustrations = []
         guard let result: [IllustrationContainer] = localRepository.fetch() else { return }

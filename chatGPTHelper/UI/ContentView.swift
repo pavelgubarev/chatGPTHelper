@@ -47,10 +47,7 @@ struct ContentView: View {
             }
         }.onAppear() {            
             //TODO перенести
-            self.container.interactors.summary.configure(promptParamsModel: promptParamsModel)
-            self.container.interactors.quote.configure(promptParamsModel: promptParamsModel)
-            self.container.interactors.contentView.configure(promptParamsModel: promptParamsModel)
-            self.container.webRepository.configure(promptParamsModel: promptParamsModel)
+            container.set(promptParamsModel: promptParamsModel)
             self.container.localRepository.modelContext = modelContext
         }
     }
@@ -72,8 +69,6 @@ struct DetailView: View {
                 ContextView()
             case .Settings:
                 SettingsView()
-            default:
-                Text("")
             }
         }.environmentObject(promptParamsModel)
             .inject(dependencies)

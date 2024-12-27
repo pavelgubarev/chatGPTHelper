@@ -17,19 +17,7 @@ struct DIContainer: EnvironmentKey {
     let interactors: Interactors
     let webRepository: WebRepository
     let localRepository: LocalRepository
-    
-    //
-    //    func assemble() -> DIContainer {
-    //        let repository = Repository()
-    //
-    //        return DIContainer(interactors:
-    //                .init(summary:
-    //                        SummaryInteractor(repository: repository)
-    //                     ),
-    //                           repository: repository
-    //        )
-    //    }
-    
+        
     init() {
         self.webRepository = WebRepository()
         self.localRepository = LocalRepository()
@@ -48,6 +36,13 @@ struct DIContainer: EnvironmentKey {
                 localRepository: self.localRepository
             )
         )
+    }
+  
+    func set(promptParamsModel: PromptParamsModel) {
+        self.interactors.summary.configure(promptParamsModel: promptParamsModel)
+        self.interactors.quote.configure(promptParamsModel: promptParamsModel)
+        self.interactors.contentView.configure(promptParamsModel: promptParamsModel)
+        self.webRepository.configure(promptParamsModel: promptParamsModel)
     }
 }
 

@@ -9,27 +9,11 @@ import Foundation
 import SwiftUI
 import SwiftData
 
-final class SummaryInteractor {
-
-    let webRepository: WebRepository
-    let localRepository: LocalRepository
-
+final class SummaryInteractor: Interactor {
     var modelContext: ModelContext?
 
-    private var promptParamsModel: PromptParamsModel?
-
     var wholeText: String = ""
-    
-    
-    init(webRepository: WebRepository, localRepository: LocalRepository) {
-        self.webRepository = webRepository
-        self.localRepository = localRepository
-    }
-    
-    func configure(promptParamsModel: PromptParamsModel) {
-        self.promptParamsModel = promptParamsModel
-    }
-    
+        
     //TODO вынести в хелпер
     @MainActor
     func setupText() {
@@ -77,6 +61,5 @@ final class SummaryInteractor {
         DispatchQueue.main.async {
             self.promptParamsModel?.summaries = result
         }
-    }
-    
+    }    
 }
