@@ -31,7 +31,7 @@ struct DIContainer: EnvironmentKey {
                 webRepository: self.webRepository,
                 localRepository: self.localRepository
             ),
-            contentView: ContentViewInteractor(
+            contentView: ContextViewInteractor(
                 webRepository: self.webRepository,
                 localRepository: self.localRepository
             ),
@@ -60,7 +60,7 @@ extension EnvironmentValues {
 struct Interactors {
     let summary: SummaryInteractorProtocol
     let quote: QuoteInteractor
-    let contentView: ContentViewInteractor
+    let contentView: ContextViewInteractor
     let illDetail: IllustrationDetailViewInteractor
 }
 

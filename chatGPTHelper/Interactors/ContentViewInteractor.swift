@@ -1,5 +1,5 @@
 //
-//  ContentViewInteractor.swift
+//  ContextViewInteractor.swift
 //  chatGPTHelper
 //
 //  Created by Павел Губарев on 27.12.2024.
@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 import SwiftUI
 
-final class ContentViewInteractor: Interactor {
+final class ContextViewInteractor: Interactor {
 
     @MainActor
     func onAppear() {

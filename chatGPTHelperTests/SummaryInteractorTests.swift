@@ -22,24 +22,47 @@ final class SummaryInteractorTests: XCTestCase {
     }
     
     @MainActor func test_onAppear() {
-        //Arrange
+        // Arrange
         let expectation = XCTestExpectation(description: "promptParamsModel should be updated")
         sut.configure(promptParamsModel: PromptParamsModel())
         
         (sut as! SummaryInteractor).promptParamsModel?.$summaries
-            .dropFirst() // Skip the initial value
+            .dropFirst()
             .sink { value in
                 XCTAssertNotNil(value)
                 expectation.fulfill()
             }
             .store(in: &cancellables)
         
-        //Act
+        // Act
         sut.onAppear()
         
-        //Assert
+        // Assert
         XCTAssertTrue(localRepositoryMock.isFetchCalled)
         wait(for: [expectation], timeout: 1.0)
         XCTAssertEqual(sut.promptParamsModel?.summaries.count, 1)
+    }
+    
+    @MainActor func test_fetchSummaries() {        
+        // Arrange
+        sut.promptParamsModel = PromptParamsModel()
+        sut.promptParamsModel?.chapters = ["first", "second"]
+        
+        let expectation = XCTestExpectation(description: "promptParamsModel should be updated")
+        (sut as! SummaryInteractor).promptParamsModel?.$summaries
+            .dropFirst() // Skip the initial value
+            .sink { value in
+                if value.count == 2 {
+                    expectation.fulfill()
+                }
+            }
+            .store(in: &cancellables)
+        
+        // Act
+        sut.requestAllSummaries()
+        
+        wait(for: [expectation], timeout: 1.0)
+        XCTAssertEqual(sut.promptParamsModel?.summaries.first!.text, "sample chat response")
+        XCTAssertEqual(sut.promptParamsModel?.summaries.last!.text, "sample chat response")
     }
 }
