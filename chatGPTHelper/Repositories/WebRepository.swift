@@ -9,73 +9,17 @@ import Foundation
 import SwiftData
 import SwiftUI
 
-struct APIError: Codable {
-    let message: String
-    let type: String
-    let code: String
+protocol WebRepositoryProtocol {
+    func fetchChatGPTResponse(prompt: String) async throws -> String
+
+    func fetchChatGPTImageResponse(prompt: String) async throws -> String
+
+    func configure(promptParamsModel: PromptParamsModel)
 }
 
-struct ChatGPTRequest: Codable {
-    let model: String
-    let messages: [Message]
-    let max_tokens: Int
-}
-
-struct Message: Codable {
-    let role: String
-    let content: String
-}
-
-struct ChatGPTResponse: Codable {
-    struct Choice: Codable {
-        let message: Message
-    }
-    let choices: [Choice]
-    let error: APIError?
-}
-
-struct ImageGenerationRequest: Codable {
-    let model: String
-    let prompt: String
-    let n: Int
-    let size: String
-}
-
-struct ImageGenerationResponse: Codable {
-    struct Data: Codable {
-        let url: String
-    }
-    let data: [Data]
-    let error: APIError?
-}
-
-final class WebRepository {
+final class WebRepository: WebRepositoryProtocol {
 
     private var promptParamsModel: PromptParamsModel?
-
-    func fetchOpenAIResponse<RequestBody: Codable, ResponseBody: Codable>(
-        requestBody: RequestBody,
-        responseType: ResponseBody.Type,
-        url: String
-    ) async throws -> ResponseBody {     
-        let jsonData = try JSONEncoder().encode(requestBody)
-
-        var request = URLRequest(url: URL(string: url)!)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("Bearer \(Constants.APIKey)", forHTTPHeaderField: "Authorization")
-        request.httpBody = jsonData
-
-        let (data, response) = try await URLSession.shared.data(for: request)
-
-        if let httpResponse = response as? HTTPURLResponse {
-            print("HTTP Status Code: \(httpResponse.statusCode)")
-        }
-        print("Raw Response Data: \(String(data: data, encoding: .utf8) ?? "No response body")")
-
-        let decodedResponse = try JSONDecoder().decode(responseType, from: data)
-        return decodedResponse
-    }
 
     func fetchChatGPTResponse(prompt: String) async throws -> String {
         let requestBody = ChatGPTRequest(
@@ -121,4 +65,29 @@ final class WebRepository {
     func configure(promptParamsModel: PromptParamsModel) {
         self.promptParamsModel = promptParamsModel
     }
+    
+    private func fetchOpenAIResponse<RequestBody: Codable, ResponseBody: Codable>(
+        requestBody: RequestBody,
+        responseType: ResponseBody.Type,
+        url: String
+    ) async throws -> ResponseBody {
+        let jsonData = try JSONEncoder().encode(requestBody)
+
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("Bearer \(Constants.APIKey)", forHTTPHeaderField: "Authorization")
+        request.httpBody = jsonData
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        if let httpResponse = response as? HTTPURLResponse {
+            print("HTTP Status Code: \(httpResponse.statusCode)")
+        }
+        print("Raw Response Data: \(String(data: data, encoding: .utf8) ?? "No response body")")
+
+        let decodedResponse = try JSONDecoder().decode(responseType, from: data)
+        return decodedResponse
+    }
+
 }

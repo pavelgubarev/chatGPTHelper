@@ -9,7 +9,12 @@ import Foundation
 import SwiftUI
 import SwiftData
 
-final class SummaryInteractor: Interactor {
+protocol SummaryInteractorProtocol: Interactor {
+    func requestAllSummaries()
+    func onAppear()
+}
+
+final class SummaryInteractor: Interactor, SummaryInteractorProtocol {
     
     @MainActor
     func requestAllSummaries() {

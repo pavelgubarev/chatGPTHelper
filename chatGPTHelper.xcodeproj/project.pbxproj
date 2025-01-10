@@ -13,10 +13,14 @@
 		5006EBCB2D141D3C006DB6C1 /* LocalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5006EBCA2D141D3C006DB6C1 /* LocalRepository.swift */; };
 		5006EBCE2D1430C0006DB6C1 /* QuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5006EBCD2D1430C0006DB6C1 /* QuoteView.swift */; };
 		5006EBD02D144671006DB6C1 /* QuoteInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5006EBCF2D144671006DB6C1 /* QuoteInteractor.swift */; };
+		504977602D313B91009F5350 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5049775F2D313B91009F5350 /* Helpers.swift */; };
 		506442792D1EB51C0023E44E /* ContentViewInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506442782D1EB51C0023E44E /* ContentViewInteractor.swift */; };
 		5064427B2D1EC9880023E44E /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5064427A2D1EC9880023E44E /* Interactor.swift */; };
 		5064427D2D1F0FFD0023E44E /* IllustrationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5064427C2D1F0FFD0023E44E /* IllustrationDetailView.swift */; };
 		5064427F2D1F13BE0023E44E /* IllustrationDetailViewInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5064427E2D1F13BE0023E44E /* IllustrationDetailViewInteractor.swift */; };
+		506442812D3123980023E44E /* SummaryInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506442802D3123980023E44E /* SummaryInteractorTests.swift */; };
+		506442832D3124600023E44E /* LocalRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506442822D3124600023E44E /* LocalRepositoryMock.swift */; };
+		506442852D3128680023E44E /* WebRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506442842D3128680023E44E /* WebRepositoryMock.swift */; };
 		506EF7C22D0AE31000FDD5CA /* chatGPTHelperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7C12D0AE31000FDD5CA /* chatGPTHelperApp.swift */; };
 		506EF7C42D0AE31000FDD5CA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7C32D0AE31000FDD5CA /* ContentView.swift */; };
 		506EF7C82D0AE31200FDD5CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 506EF7C72D0AE31200FDD5CA /* Assets.xcassets */; };
@@ -172,6 +176,7 @@
 				506EF7F62D10647300FDD5CA /* Settings.swift */,
 				506EF7F82D106FB600FDD5CA /* Katya.txt */,
 				5006EBC42D11A3BC006DB6C1 /* Models.swift */,
+				5049775F2D313B91009F5350 /* Helpers.swift */,
 			);
 			path = chatGPTHelper;
 			sourceTree = "<group>";
@@ -187,7 +192,9 @@
 		506EF7D42D0AE31200FDD5CA /* chatGPTHelperTests */ = {
 			isa = PBXGroup;
 			children = (
-				506EF7D52D0AE31200FDD5CA /* chatGPTHelperTests.swift */,
+				506442802D3123980023E44E /* SummaryInteractorTests.swift */,
+				506442822D3124600023E44E /* LocalRepositoryMock.swift */,
+				506442842D3128680023E44E /* WebRepositoryMock.swift */,
 			);
 			path = chatGPTHelperTests;
 			sourceTree = "<group>";
@@ -333,6 +340,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				506EF7F32D0B231000FDD5CA /* ContextView.swift in Sources */,
+				504977602D313B91009F5350 /* Helpers.swift in Sources */,
 				5006EBC72D12DFF4006DB6C1 /* Assembly.swift in Sources */,
 				506EF7C42D0AE31000FDD5CA /* ContentView.swift in Sources */,
 				506EF7F12D0AEF6000FDD5CA /* WebRepository.swift in Sources */,
@@ -347,6 +355,7 @@
 				506EF7FB2D106FE000FDD5CA /* SummaryInteractor.swift in Sources */,
 				506EF7C22D0AE31000FDD5CA /* chatGPTHelperApp.swift in Sources */,
 				5006EBC32D119602006DB6C1 /* SummaryView.swift in Sources */,
+				506442872D312BE80023E44E /* WebRepositoryModels.swift in Sources */,
 				5006EBC52D11A3BC006DB6C1 /* Models.swift in Sources */,
 				5064427D2D1F0FFD0023E44E /* IllustrationDetailView.swift in Sources */,
 			);
@@ -356,7 +365,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				506EF7D62D0AE31200FDD5CA /* chatGPTHelperTests.swift in Sources */,
+				506442812D3123980023E44E /* SummaryInteractorTests.swift in Sources */,
+				506442852D3128680023E44E /* WebRepositoryMock.swift in Sources */,
+				506442832D3124600023E44E /* LocalRepositoryMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

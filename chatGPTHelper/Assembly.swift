@@ -58,7 +58,7 @@ extension EnvironmentValues {
 }
 
 struct Interactors {
-    let summary: SummaryInteractor
+    let summary: SummaryInteractorProtocol
     let quote: QuoteInteractor
     let contentView: ContentViewInteractor
     let illDetail: IllustrationDetailViewInteractor

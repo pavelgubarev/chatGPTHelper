@@ -121,11 +121,9 @@ final class QuoteInteractor: Interactor {
     }
  
     @MainActor
-    private func requestPrompt(quote: String) async -> String {
-        
+    private func requestPrompt(quote: String) async -> String {        
         let prompt = "Сделай промпт для Dall-e для иллюстрации этой цитаты: " + quote + " Цитата взята из этой главы: " + chapter
-       
-        
+               
         async let result = webRepository.fetchChatGPTResponse(prompt: prompt)
         
         do {

@@ -8,12 +8,20 @@
 import Foundation
 import SwiftData
 
-final class LocalRepository {
-    var modelContext: ModelContext?
+protocol LocalRepositoryProtocol {
+    func fetch<T: PersistentModel>() -> [T]?
+    
+    func fetch<T: PersistentModel>(withID id: PersistentIdentifier) -> T? where T: Identifiable
+    
+    func deleteAllSummaries()
+    
+    func save<T: PersistentModel>(_ object: T)
+    
+    func downloadAndSaveImage(from url: String, completion: @escaping (String?) -> Void)
+}
 
-//    init(modelContext: ModelContext) {
-//        self.modelContext = modelContext
-//    }
+final class LocalRepository: LocalRepositoryProtocol {
+    var modelContext: ModelContext?
 
     func fetch<T: PersistentModel>() -> [T]? {
         let fetchRequest = FetchDescriptor<T>()
@@ -27,20 +35,15 @@ final class LocalRepository {
     }
     
     func fetch<T: PersistentModel>(withID id: PersistentIdentifier) -> T? where T: Identifiable {
-        do {
-            let result = modelContext?.model(for: id) as? T
-            return result
-        } catch {
-            print("Failed to fetch \(T.self): \(error)")
-            return nil
-        }
+        let result = modelContext?.model(for: id) as? T
+        return result
     }
     
     func deleteAllSummaries() {
         do {
             try modelContext?.delete(model: SummaryData.self)
         } catch {
-            print("Failed to delete students.")
+            print("Failed to delete")
         }
     }
     
@@ -60,6 +63,7 @@ final class LocalRepository {
         }
     }    
     
+    // TODO split
     func downloadAndSaveImage(from url: String, completion: @escaping (String?) -> Void) {
         guard let url = URL(string: url) else { return }
         let task = URLSession.shared.dataTask(with: url) { data, response, error in

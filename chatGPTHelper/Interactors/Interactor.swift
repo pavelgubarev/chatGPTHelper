@@ -9,12 +9,12 @@ import Foundation
 
 class Interactor {
         
-    let webRepository: WebRepository
-    let localRepository: LocalRepository
+    let webRepository: WebRepositoryProtocol
+    let localRepository: LocalRepositoryProtocol
 
     var promptParamsModel: PromptParamsModel?
 
-    init(webRepository: WebRepository, localRepository: LocalRepository) {
+    init(webRepository: WebRepositoryProtocol, localRepository: LocalRepositoryProtocol) {
         self.webRepository = webRepository
         self.localRepository = localRepository
     }
