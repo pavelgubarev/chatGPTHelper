@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct QuoteView: View {
-    @Environment(\.injected) private var dependencies: DIContainer
+    @EnvironmentObject private var dependencies: DIContainer
     @EnvironmentObject private var promptParamsModel: PromptParamsModel
     
     @StateObject private var illustrations = IllustrationsViewModel()
@@ -21,8 +21,7 @@ struct QuoteView: View {
     @State private var imageURL: String = ""
     @State private var quote: String = ""
     
-    init(interactor: QuoteInteractor, navigationPath: Binding<NavigationPath>) {
-//        self._illustrations = StateObject(wrappedValue: interactor.illustrationsViewModel)
+    init(navigationPath: Binding<NavigationPath>) {
         self._navigationPath = navigationPath
     }
     
@@ -30,8 +29,6 @@ struct QuoteView: View {
         VStack {                        
             Button("Add Quote") {
                 Task {
-                    //Вынести повторку
-                    dependencies.interactors.summary.setupText()
                     await dependencies.interactors.quote.didTapGetIllustration()
                 }
             }.padding()

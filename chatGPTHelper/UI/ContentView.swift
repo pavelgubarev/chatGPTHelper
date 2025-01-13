@@ -40,7 +40,7 @@ struct ContentView: View {
                     //TODO перенести инжект?
                     DetailView(selectedItem: selectedItem, navigationPath: $navigationPath)
                         .environmentObject(promptParamsModel)
-                        .inject(container)
+                        .environmentObject(container)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     Text("Select an item")
@@ -51,6 +51,7 @@ struct ContentView: View {
             //TODO перенести
             container.set(promptParamsModel: promptParamsModel)
             self.container.localRepository.modelContext = modelContext
+            container.interactors.contentView.onAppear()
         }
     }
 }
@@ -62,7 +63,7 @@ struct IllustrationDetailViewData: Hashable {
 struct DetailView: View {
     let selectedItem: MenuItem
     @EnvironmentObject private var promptParamsModel: PromptParamsModel
-    @Environment(\.injected) private var dependencies: DIContainer
+    @EnvironmentObject private var dependencies: DIContainer
     @Binding var navigationPath: NavigationPath
     
     var body: some View {
@@ -71,24 +72,17 @@ struct DetailView: View {
             case .Summary:
                 SummaryView()
             case .Quote:
-                QuoteView(interactor: dependencies.interactors.quote, navigationPath: $navigationPath)
+                QuoteView(navigationPath: $navigationPath)
             case .Context:
                 ContextView()
             case .Settings:
                 SettingsView()
             }
-        }.environmentObject(promptParamsModel)
-            .inject(dependencies)
-            .onAppear {
-                dependencies.interactors.contentView.onAppear()
-                print(promptParamsModel.context)
-            }
-            .navigationDestination(for: IllustrationDetailViewData.self) { illustrationData in
-                IllustrationDetailView(data: illustrationData).inject(dependencies)
-            }
+        }
+        .environmentObject(promptParamsModel)
+        .environmentObject(dependencies)
+        .navigationDestination(for: IllustrationDetailViewData.self) { illustrationData in
+            IllustrationDetailView(data: illustrationData).environmentObject(dependencies)
+        }
     }
-}
-
-#Preview {
-    ContentView(container: DIContainer())
 }

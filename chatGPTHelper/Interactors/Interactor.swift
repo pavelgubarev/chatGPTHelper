@@ -14,7 +14,7 @@ class Interactor {
 
     var promptParamsModel: PromptParamsModel?
 
-    init(webRepository: WebRepositoryProtocol, localRepository: LocalRepositoryProtocol) {
+    required init(webRepository: WebRepositoryProtocol, localRepository: LocalRepositoryProtocol) {
         self.webRepository = webRepository
         self.localRepository = localRepository
     }

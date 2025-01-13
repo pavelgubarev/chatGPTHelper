@@ -25,7 +25,7 @@ struct ContextView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var contextData: [ContextData]
     @EnvironmentObject private var promptParamsModel: PromptParamsModel
-    @Environment(\.injected) private var dependencies: DIContainer
+    @EnvironmentObject private var dependencies: DIContainer
 
     var body: some View {
         VStack {
@@ -38,7 +38,9 @@ struct ContextView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {
-            fetchText()
+            if promptParamsModel.context.isEmpty {
+                fetchText()
+            }
         }
     }
     
@@ -52,11 +54,9 @@ struct ContextView: View {
         if let existingData = contextData.first {
             existingData.text = promptParamsModel.context
         } else {
-            // Create a new note if none exists
             let newData = ContextData(text: promptParamsModel.context)
             modelContext.insert(newData)
-        }
-        
+        }        
         do {
             try modelContext.save()
         } catch {

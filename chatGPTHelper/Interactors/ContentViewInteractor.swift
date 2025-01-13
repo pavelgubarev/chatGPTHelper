@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 import SwiftUI
 
-final class ContextViewInteractor: Interactor {
+final class ContentViewInteractor: Interactor {
 
     @MainActor
     func onAppear() {

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SummaryView: View {
-    @Environment(\.injected) private var dependencies: DIContainer
+    @EnvironmentObject private var dependencies: DIContainer
     @EnvironmentObject private var promptParamsModel: PromptParamsModel
     
     let columns = [

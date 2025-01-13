@@ -10,30 +10,39 @@ import SwiftUI
 struct IllustrationDetailView: View {
     let data: IllustrationDetailViewData
     @State var illustration: Illustration?
-    @Environment(\.injected) private var dependencies: DIContainer
+    @EnvironmentObject private var dependencies: DIContainer
 
     var body: some View {
 //        guard let illustration else { return Text("fail") }
         
         ScrollView {
             
-            if let url = illustration?.imageURL  {
-                // TODO (!)
-                if let imageData = try? Data(contentsOf: URL(
-                    string: "file://" + url)!
-                ),
-                   let image = Image(data: imageData) {
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .cornerRadius(20)
-                    
+            VStack {
+                Text(illustration?.quote ?? "")
+                    .padding()
+
+                Text(illustration?.prompt ?? "")
+                    .padding()
+
+                if let url = illustration?.imageURL  {
+                    // TODO (!)
+                    if let imageData = try? Data(contentsOf: URL(
+                        string: "file://" + url)!
+                    ),
+                       let image = Image(data: imageData) {
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .cornerRadius(20)
+                            .padding()
+                        
+                    } else {
+                        Text("Image not found")
+                            .foregroundColor(.gray)
+                    }
                 } else {
-                    Text("Image not found")
-                        .foregroundColor(.gray)
+                    Text("...ждём")
                 }
-            } else {
-                Text("...ждём")
             }
         }.onAppear {
            illustration = dependencies.interactors.illDetail.getInfoForIllustration(id: data.id)
