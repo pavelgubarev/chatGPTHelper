@@ -50,7 +50,7 @@ final class SummaryInteractorTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "promptParamsModel should be updated")
         (sut as! SummaryInteractor).promptParamsModel?.$summaries
-            .dropFirst() // Skip the initial value
+            .dropFirst() 
             .sink { value in
                 if value.count == 2 {
                     expectation.fulfill()
@@ -61,8 +61,10 @@ final class SummaryInteractorTests: XCTestCase {
         // Act
         sut.requestAllSummaries()
         
+        // Assert
         wait(for: [expectation], timeout: 1.0)
         XCTAssertEqual(sut.promptParamsModel?.summaries.first!.text, "sample chat response")
         XCTAssertEqual(sut.promptParamsModel?.summaries.last!.text, "sample chat response")
+        XCTAssertTrue(localRepositoryMock.isSaveCalled)
     }
 }

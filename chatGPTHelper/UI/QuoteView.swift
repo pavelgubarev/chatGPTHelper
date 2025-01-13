@@ -11,7 +11,7 @@ struct QuoteView: View {
     @Environment(\.injected) private var dependencies: DIContainer
     @EnvironmentObject private var promptParamsModel: PromptParamsModel
     
-    @StateObject private var illustrations: IllustrationsViewModel
+    @StateObject private var illustrations = IllustrationsViewModel()
     @Binding var navigationPath: NavigationPath
     
     let columns = [
@@ -22,7 +22,7 @@ struct QuoteView: View {
     @State private var quote: String = ""
     
     init(interactor: QuoteInteractor, navigationPath: Binding<NavigationPath>) {
-        self._illustrations = StateObject(wrappedValue: interactor.illustrationsViewModel)
+//        self._illustrations = StateObject(wrappedValue: interactor.illustrationsViewModel)
         self._navigationPath = navigationPath
     }
     
@@ -38,7 +38,7 @@ struct QuoteView: View {
            
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
-                    ForEach(illustrations.illustrations, id: \.id) { illustration in
+                    ForEach(dependencies.interactors.quote.illustrationsViewModel.illustrations, id: \.id) { illustration in
                         IllustrationView(illustration: illustration)
                             .onTapGesture {
                                 //TODO
@@ -47,6 +47,7 @@ struct QuoteView: View {
                     }
                 }
                 .padding()
+                .onReceive(dependencies.interactors.quote.illustrationsViewModel.$illustrations) { self.illustrations.illustrations = $0 }
             }
         }.onAppear {
             dependencies.interactors.quote.onAppear()

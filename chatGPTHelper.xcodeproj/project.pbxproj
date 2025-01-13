@@ -21,11 +21,11 @@
 		506442812D3123980023E44E /* SummaryInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506442802D3123980023E44E /* SummaryInteractorTests.swift */; };
 		506442832D3124600023E44E /* LocalRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506442822D3124600023E44E /* LocalRepositoryMock.swift */; };
 		506442852D3128680023E44E /* WebRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506442842D3128680023E44E /* WebRepositoryMock.swift */; };
+		506442872D312BE80023E44E /* WebRepositoryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506442862D312BE80023E44E /* WebRepositoryModels.swift */; };
 		506EF7C22D0AE31000FDD5CA /* chatGPTHelperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7C12D0AE31000FDD5CA /* chatGPTHelperApp.swift */; };
 		506EF7C42D0AE31000FDD5CA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7C32D0AE31000FDD5CA /* ContentView.swift */; };
 		506EF7C82D0AE31200FDD5CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 506EF7C72D0AE31200FDD5CA /* Assets.xcassets */; };
 		506EF7CB2D0AE31200FDD5CA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 506EF7CA2D0AE31200FDD5CA /* Preview Assets.xcassets */; };
-		506EF7D62D0AE31200FDD5CA /* chatGPTHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7D52D0AE31200FDD5CA /* chatGPTHelperTests.swift */; };
 		506EF7E02D0AE31200FDD5CA /* chatGPTHelperUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7DF2D0AE31200FDD5CA /* chatGPTHelperUITests.swift */; };
 		506EF7E22D0AE31200FDD5CA /* chatGPTHelperUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7E12D0AE31200FDD5CA /* chatGPTHelperUITestsLaunchTests.swift */; };
 		506EF7F12D0AEF6000FDD5CA /* WebRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506EF7F02D0AEF6000FDD5CA /* WebRepository.swift */; };
@@ -60,10 +60,15 @@
 		5006EBCA2D141D3C006DB6C1 /* LocalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRepository.swift; sourceTree = "<group>"; };
 		5006EBCD2D1430C0006DB6C1 /* QuoteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuoteView.swift; sourceTree = "<group>"; };
 		5006EBCF2D144671006DB6C1 /* QuoteInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteInteractor.swift; sourceTree = "<group>"; };
+		5049775F2D313B91009F5350 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		506442782D1EB51C0023E44E /* ContentViewInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewInteractor.swift; sourceTree = "<group>"; };
 		5064427A2D1EC9880023E44E /* Interactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
 		5064427C2D1F0FFD0023E44E /* IllustrationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IllustrationDetailView.swift; sourceTree = "<group>"; };
 		5064427E2D1F13BE0023E44E /* IllustrationDetailViewInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IllustrationDetailViewInteractor.swift; sourceTree = "<group>"; };
+		506442802D3123980023E44E /* SummaryInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryInteractorTests.swift; sourceTree = "<group>"; };
+		506442822D3124600023E44E /* LocalRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRepositoryMock.swift; sourceTree = "<group>"; };
+		506442842D3128680023E44E /* WebRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRepositoryMock.swift; sourceTree = "<group>"; };
+		506442862D312BE80023E44E /* WebRepositoryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRepositoryModels.swift; sourceTree = "<group>"; };
 		506EF7BE2D0AE31000FDD5CA /* chatGPTHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chatGPTHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		506EF7C12D0AE31000FDD5CA /* chatGPTHelperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatGPTHelperApp.swift; sourceTree = "<group>"; };
 		506EF7C32D0AE31000FDD5CA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -71,7 +76,6 @@
 		506EF7CA2D0AE31200FDD5CA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		506EF7CC2D0AE31200FDD5CA /* chatGPTHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = chatGPTHelper.entitlements; sourceTree = "<group>"; };
 		506EF7D12D0AE31200FDD5CA /* chatGPTHelperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chatGPTHelperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		506EF7D52D0AE31200FDD5CA /* chatGPTHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatGPTHelperTests.swift; sourceTree = "<group>"; };
 		506EF7DB2D0AE31200FDD5CA /* chatGPTHelperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chatGPTHelperUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		506EF7DF2D0AE31200FDD5CA /* chatGPTHelperUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatGPTHelperUITests.swift; sourceTree = "<group>"; };
 		506EF7E12D0AE31200FDD5CA /* chatGPTHelperUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatGPTHelperUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -138,6 +142,7 @@
 			children = (
 				506EF7F02D0AEF6000FDD5CA /* WebRepository.swift */,
 				5006EBCA2D141D3C006DB6C1 /* LocalRepository.swift */,
+				506442862D312BE80023E44E /* WebRepositoryModels.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";

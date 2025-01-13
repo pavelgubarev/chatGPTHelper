@@ -18,7 +18,7 @@ final class SummaryInteractor: Interactor, SummaryInteractorProtocol {
     
     @MainActor
     func requestAllSummaries() {        
-        cleanOldSummaries()
+        removeOldSummaries()
         setupText()
         guard let chapters = promptParamsModel?.chapters else { return }
 
@@ -47,7 +47,7 @@ final class SummaryInteractor: Interactor, SummaryInteractorProtocol {
         }
     }    
     
-    private func cleanOldSummaries() {
+    private func removeOldSummaries() {
         DispatchQueue.main.async {
             self.localRepository.deleteAllSummaries()
             self.promptParamsModel?.summaries = []

@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 
-@MainActor
 struct DIContainer: EnvironmentKey {
     //TODO
     static var defaultValue: Self { Self.default }
