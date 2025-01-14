@@ -8,9 +8,27 @@
 import Foundation
 import SwiftData
 
+enum PromptKeys: CaseIterable, Codable {
+    case summary
+    case quote
+    case prompt
+}
+
+class ObservableString: ObservableObject, Equatable {
+    @Published var value: String = ""
+    
+    init(value: String = "") {
+        self.value = value
+    }
+    static func == (lhs: ObservableString, rhs: ObservableString) -> Bool {
+        lhs.value == rhs.value
+    }    
+}
+
 @MainActor
-class PromptParamsModel: ObservableObject {
-    @Published var context = ""
+class PromptParamsModel: ObservableObject {    
+    var prompts: [PromptKeys: ObservableString] = [:]
+
     @Published var mockText = ""
     @Published var isMockEnabled = false
     @Published var summaries = [SummaryData]()

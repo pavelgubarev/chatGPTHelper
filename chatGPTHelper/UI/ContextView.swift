@@ -9,13 +9,15 @@ import SwiftData
 import Combine
 
 @Model
-final class ContextData {
+final class PromptsData {
     @Attribute(.unique) var id: UUID
-    var text: String
+    var prompts: [PromptKeys: String] = [:]
     
-    init(text: String) {
+    init(prompts: [PromptKeys: ObservableString]) {
         self.id = UUID()
-        self.text = text
+        for (key, prompt) in prompts {
+            self.prompts[key] = prompt.value
+        }
     }
 }
 
@@ -23,40 +25,54 @@ import SwiftUI
 
 struct ContextView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var contextData: [ContextData]
+    @Query private var promptsData: [PromptsData]
     @EnvironmentObject private var promptParamsModel: PromptParamsModel
     @EnvironmentObject private var dependencies: DIContainer
 
     var body: some View {
         VStack {
-            TextEditor(text: $promptParamsModel.context)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-                .onChange(of: promptParamsModel.context) {
-                    saveText()
-                }
+            ForEach(PromptKeys.allCases, id: \.self) { key in
+                //TODO: better unwrapping
+                    TextEditor(text: Binding(
+                        get: { promptParamsModel.prompts[key]?.value ?? "" },
+                        set: {
+                            promptParamsModel.prompts[key]?.value = $0
+                            saveText()
+                        }
+                    )
+                    )
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+//                        .onChange(of: promptParamsModel.prompts[key] ?? ObservableString()) { newValue in 
+//                            
+//                        }
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {
-            if promptParamsModel.context.isEmpty {
-                fetchText()
+            if promptParamsModel.prompts.isEmpty {
+                fetchPromptsTexts()
             }
         }
     }
     
-    private func fetchText() {
-        if let data = contextData.first {
-            promptParamsModel.context = data.text
+    private func fetchPromptsTexts() {
+        if let data = promptsData.first {
+            for (key, prompt) in data.prompts {
+                promptParamsModel.prompts[key] = ObservableString(value: prompt)
+            }
         }
     }
     
     private func saveText() {
-        if let existingData = contextData.first {
-            existingData.text = promptParamsModel.context
+        if let existingData = promptsData.first {
+            for (key, prompt) in promptParamsModel.prompts {
+                existingData.prompts[key] = prompt.value
+            }
         } else {
-            let newData = ContextData(text: promptParamsModel.context)
+            let newData = PromptsData(prompts: promptParamsModel.prompts)
             modelContext.insert(newData)
-        }        
+        }
         do {
             try modelContext.save()
         } catch {

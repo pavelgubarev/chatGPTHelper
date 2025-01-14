@@ -24,7 +24,9 @@ final class SummaryInteractor: Interactor, SummaryInteractorProtocol {
 
         Task {
             for (index, chapter) in chapters.enumerated().prefix(2) {
-                async let result = webRepository.fetchChatGPTResponse(prompt: "Пожалуйста, сделай краткое содержание этой главы, начни с названия главы и перечисли основные события списком: " + chapter)
+                guard let promptInitialText = self.promptParamsModel?.prompts[.summary]?.value else { return }
+                
+                async let result = webRepository.fetchChatGPTResponse(prompt: promptInitialText + chapter)
                 
                 do {
                     let response = try await result

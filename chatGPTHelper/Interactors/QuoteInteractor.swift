@@ -38,8 +38,13 @@ final class QuoteInteractor: Interactor {
         let illustration = Illustration()
         illustrationsViewModel.illustrations.insert(illustration, at: .zero)
 
-        illustration.quote = await requestQuote()
-        illustration.prompt = await requestPrompt(quote: illustration.quote)
+        guard let quote = await requestQuote() else { return }
+        
+        illustration.quote = quote
+        
+        guard let promptForImage = await requestPrompt(quote: illustration.quote) else { return }
+        
+        illustration.prompt = promptForImage
         let remoteImageURL = await requestImage(prompt: illustration.prompt)
 
         self.localRepository.downloadAndSaveImage(from: remoteImageURL) { localURL in
@@ -97,16 +102,18 @@ final class QuoteInteractor: Interactor {
     }
     
     @MainActor
-    func requestQuote() async -> String {
+    func requestQuote() async -> String? {
         var usedQuotes = ""
         //TODO: remove prefix
         _ = illustrationsViewModel.illustrations.map { usedQuotes = usedQuotes + $0.quote.prefix(200) + ", " }
         
-        guard let chapter = promptParamsModel?.chapters.randomElement() else { return "" }
+        guard let chapter = promptParamsModel?.chapters.randomElement() else { return nil }
         
         self.chapter = chapter
         
-        let prompt = (promptParamsModel?.context ?? "") + chapter + "Далее список цитат, которые ты уже выбирал. Не используй их: " + usedQuotes
+        guard let promptInitialText = promptParamsModel?.prompts[.quote]?.value else { return nil }
+        
+        let prompt = promptInitialText + chapter + "Далее список цитат, которые ты уже выбирал. Не используй их: " + usedQuotes
         
         async let result = webRepository.fetchChatGPTResponse(prompt: prompt)
         
@@ -116,13 +123,14 @@ final class QuoteInteractor: Interactor {
             return response
         } catch {
             print("Failed to fetch summary for a chapter: \(error)")
+            return nil
         }
-        return ""
     }
  
     @MainActor
-    private func requestPrompt(quote: String) async -> String {        
-        let prompt = "Сделай промпт для Dall-e для иллюстрации этой цитаты: " + quote + " Цитата взята из этой главы: " + chapter
+    private func requestPrompt(quote: String) async -> String? {
+        guard let promptInitialText = promptParamsModel?.prompts[.prompt]?.value else { return nil }
+        let prompt = promptInitialText + quote + " Цитата взята из этой главы: " + chapter
                
         async let result = webRepository.fetchChatGPTResponse(prompt: prompt)
         
@@ -132,8 +140,8 @@ final class QuoteInteractor: Interactor {
             return response
         } catch {
             print("Failed to fetch summary for a chapter: \(error)")
+            return nil
         }
-        return ""
     }
 
     func onAppear() {
