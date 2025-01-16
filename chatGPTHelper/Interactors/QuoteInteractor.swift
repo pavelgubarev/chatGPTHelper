@@ -58,33 +58,7 @@ final class QuoteInteractor: Interactor {
             illustrationContainer.imageURL = localURL
             
             self.localRepository.save(illustrationContainer)
-        }
-        
-//
-////
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//            illustration.quote = "Цитата"
-//        }
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-//            illustration.prompt = "Создай атмосферную, кинематографическую иллюстрацию ночной сцены в коридоре загадочного здания. Главный акцент сделай на двух девушках: первая — Катя, молодая, раздумчивая, в тонкой пижаме, укутавшаяся в шаль, ощущает лёгкий холод и замешательство; вторая — Галя, девушка с пронзительным, почти гипнотизирующим взглядом, одетая в строгий, чуть винтажный наряд, держит маленький ночничок с мягким молочным светом. Их окружает длинный, тёмный коридор с загадочными белыми дверьми, дрожащими тенями на стенах и ощущением тайны. Вдалеке едва виден свет из окна соседнего офисного здания, добавляющий атмосферности. Общий стиль иллюстрации — неоновый нуар с элементами сюрреализма, подчёркивающий напряжённость и философскую глубину ситуации."
-//        }
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-//            illustration.imageURL = "https://oaidalleapiprodscus.blob.core.windows.net/private/org-tE89vTbqoJnfqTsMl7E1cLze/user-WLrcGnBMvb9KqGlIPl6P4N84/img-MrrurFnDLKeQ2vto2gPaS93U.png?st=2024-12-25T12%3A01%3A51Z&se=2024-12-25T14%3A01%3A51Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-12-24T22%3A58%3A14Z&ske=2024-12-25T22%3A58%3A14Z&sks=b&skv=2024-08-04&sig=OjgiyEytnGkaDZgF4X5Ja%2BgPvgm2rXOM3sxiQwC3swI%3D"
-//            
-//            self.localRepository.downloadAndSaveImage(from: illustration.imageURL) { localURL in
-//                
-//                guard let localURL else {return}
-//                
-//            let illustrationContainer = IllustrationContainer()
-//            illustrationContainer.quote = illustration.quote
-//            illustrationContainer.prompt = illustration.prompt
-//            illustrationContainer.imageURL = localURL
-//            
-//            self.localRepository.save(illustrationContainer)
-//            }
-//            
-
-//        }
+        }    
     }
 
     @MainActor
@@ -119,7 +93,6 @@ final class QuoteInteractor: Interactor {
         
         do {
             let response = try await result
-            print(response)
             return response
         } catch {
             print("Failed to fetch summary for a chapter: \(error)")
