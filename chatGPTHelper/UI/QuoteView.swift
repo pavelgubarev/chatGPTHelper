@@ -34,12 +34,13 @@ struct QuoteView: View {
             }.padding()
            
             ScrollView {
-                LazyVGrid(columns: columns, spacing: 20) {
+                LazyVGrid(columns: columns, spacing: 60) {
                     ForEach(dependencies.interactors.quote.illustrationsViewModel.illustrations, id: \.id) { illustration in
                         IllustrationView(illustration: illustration)
                             .onTapGesture {
-                                //TODO
-                                navigationPath.append(IllustrationDetailViewData(id: illustration.persistentID!))
+                                guard let illID = illustration.persistentID else { return }
+                                
+                                navigationPath.append(IllustrationDetailViewData(id: illID))
                             }
                     }
                 }
@@ -58,6 +59,8 @@ struct IllustrationView: View {
     var body: some View {
         VStack {
             Text(illustration.quote)
+                .foregroundColor(.gray)
+                .frame(height: 100)
             
             if illustration.imageURL != "" {
                 if let imageData = try? Data(contentsOf: URL(

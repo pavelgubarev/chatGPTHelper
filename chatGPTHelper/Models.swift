@@ -65,4 +65,13 @@ final class IllustrationContainer: ObservableObject, Identifiable {
         self.prompt = prompt
         self.imageURL = imageURL
     }
+    
+    func getIllustration() -> Illustration {
+        let illustration = Illustration()
+        illustration.quote = quote
+        illustration.prompt = prompt
+        illustration.imageURL = imageURL
+        illustration.persistentID = id
+        return illustration
+    }
 }

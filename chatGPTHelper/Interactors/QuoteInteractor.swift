@@ -33,6 +33,8 @@ final class QuoteInteractor: Interactor {
         
     let illustrationsViewModel = IllustrationsViewModel()
     
+    var isLocalCacheLoaded = false
+    
     @MainActor
     func didTapGetIllustration() async {
         let illustration = Illustration()
@@ -118,15 +120,13 @@ final class QuoteInteractor: Interactor {
     }
 
     func onAppear() {
-        illustrationsViewModel.illustrations = []
-        guard let result: [IllustrationContainer] = localRepository.fetch() else { return }
+        guard !isLocalCacheLoaded,
+              let result: [IllustrationContainer] = localRepository.fetch() else { return }
+        
+        isLocalCacheLoaded = true
         DispatchQueue.main.async {
             for savedItem in result {
-                let illustration = Illustration()
-                illustration.quote = savedItem.quote
-                illustration.prompt = savedItem.prompt
-                illustration.imageURL = savedItem.imageURL
-                illustration.persistentID = savedItem.persistentModelID
+                let illustration = savedItem.getIllustration()
                 self.illustrationsViewModel.illustrations.insert(illustration, at: .zero)
             }
         }

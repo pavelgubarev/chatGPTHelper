@@ -12,7 +12,7 @@ enum MenuItem: CaseIterable {
     case Summary
     case Quote
     case Context
-    case Settings
+//    case Settings
 }
 
 struct ContentView: View {
@@ -37,7 +37,6 @@ struct ContentView: View {
         } detail: {
             NavigationStack(path: $navigationPath) {
                 if let selectedItem = selectedItem {
-                    //TODO перенести инжект?
                     DetailView(selectedItem: selectedItem, navigationPath: $navigationPath)
                         .environmentObject(promptParamsModel)
                         .environmentObject(container)
@@ -75,8 +74,8 @@ struct DetailView: View {
                 QuoteView(navigationPath: $navigationPath)
             case .Context:
                 ContextView()
-            case .Settings:
-                SettingsView()
+//            case .Settings:
+//                SettingsView()
             }
         }
         .environmentObject(promptParamsModel)

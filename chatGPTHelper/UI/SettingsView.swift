@@ -28,13 +28,7 @@ struct SettingsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var mockedResponseData: [MockedResponseData]
     @EnvironmentObject private var promptParamsModel: PromptParamsModel
-    
-    
-    //    init(text: Binding<String>, isMockEnabled: Binding<Bool>) {
-    //        self._mockText = text
-    //        self._isMockEnabled = isMockEnabled
-    //    }
-    
+
     var body: some View {
         GeometryReader { geometry in
             VStack {

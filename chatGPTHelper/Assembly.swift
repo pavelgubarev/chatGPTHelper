@@ -23,9 +23,14 @@ class DIContainer: ObservableObject {
     
     //TODO: Move
     func set(promptParamsModel: PromptParamsModel) {
-        self.interactors.summary.configure(promptParamsModel: promptParamsModel)
-        self.interactors.quote.configure(promptParamsModel: promptParamsModel)
-        self.interactors.contentView.configure(promptParamsModel: promptParamsModel)
+        [
+            self.interactors.summary,
+            self.interactors.quote,
+            self.interactors.contentView,
+            self.interactors.illDetail,
+            self.interactors.settings 
+        ].forEach { $0.configure(promptParamsModel: promptParamsModel) }
+
         self.webRepository.configure(promptParamsModel: promptParamsModel)
     }
 }
@@ -48,7 +53,8 @@ final class Assembly {
             summary: makeInteractor(SummaryInteractor.self),
             quote: makeInteractor(QuoteInteractor.self),
             contentView: makeInteractor(ContentViewInteractor.self),
-            illDetail: makeInteractor(IllustrationDetailViewInteractor.self)
+            illDetail: makeInteractor(IllustrationDetailViewInteractor.self),
+            settings: makeInteractor(SettingsInteractor.self)
         )
     }
 }
@@ -58,4 +64,5 @@ struct Interactors {
     let quote: QuoteInteractor
     let contentView: ContentViewInteractor
     let illDetail: IllustrationDetailViewInteractor
+    let settings: SettingsInteractorProtocol 
 }

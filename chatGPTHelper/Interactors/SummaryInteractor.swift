@@ -43,7 +43,7 @@ final class SummaryInteractor: Interactor, SummaryInteractorProtocol {
     }
           
     func onAppear() {
-        guard let result: [SummaryData] = localRepository.fetch() else { return }
+       guard let result: [SummaryData] = localRepository.fetch() else { return }
         DispatchQueue.main.async {
             self.promptParamsModel?.summaries = result
         }
