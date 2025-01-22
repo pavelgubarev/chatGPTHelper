@@ -28,7 +28,6 @@ final class IllustrationsViewModel: ObservableObject {
 }
 
 final class QuoteInteractor: Interactor {
-
     var chapter = ""
         
     let illustrationsViewModel = IllustrationsViewModel()
@@ -115,6 +114,10 @@ final class QuoteInteractor: Interactor {
     func onAppear() {
         guard !isLocalCacheLoaded,
               let result: [IllustrationContainer] = localRepository.fetch() else { return }
+        
+        DispatchQueue.main.async {
+            self.setupText()
+        }
         
         isLocalCacheLoaded = true
         DispatchQueue.main.async {

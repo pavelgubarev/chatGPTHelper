@@ -18,6 +18,7 @@ struct SummaryView: View {
     var body: some View {
         VStack {
             Button("Update All The Summaries") {
+                // TODO: refactor this
                 dependencies.interactors.summary.setupText()
                 dependencies.interactors.summary.requestAllSummaries()
             }.padding()

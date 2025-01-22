@@ -33,6 +33,7 @@ struct ContextView: View {
         VStack {
             ForEach(PromptKeys.allCases, id: \.self) { key in
                 if var prompt = promptParamsModel.prompts[key] {
+                    Text(String(describing: key))
                     TextEditor(text: Binding(
                         get: { prompt.value },
                         set: {
