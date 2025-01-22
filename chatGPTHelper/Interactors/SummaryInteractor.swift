@@ -15,6 +15,7 @@ protocol SummaryInteractorProtocol: Interactor {
 }
 
 final class SummaryInteractor: Interactor, SummaryInteractorProtocol {
+    private var isLocalCacheLoaded = false // Added variable
     
     @MainActor
     func requestAllSummaries() {        
@@ -41,13 +42,16 @@ final class SummaryInteractor: Interactor, SummaryInteractorProtocol {
             }
         }
     }
-          
+    
     func onAppear() {
-       guard let result: [SummaryData] = localRepository.fetch() else { return }
+        guard !isLocalCacheLoaded,
+              let result: [SummaryData] = localRepository.fetch() else { return }
+        
+        self.isLocalCacheLoaded = true
         DispatchQueue.main.async {
             self.promptParamsModel?.summaries = result
         }
-    }    
+    }
     
     private func removeOldSummaries() {
         DispatchQueue.main.async {

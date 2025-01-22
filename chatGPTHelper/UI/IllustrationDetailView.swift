@@ -13,7 +13,6 @@ struct IllustrationDetailView: View {
     @EnvironmentObject private var dependencies: DIContainer
 
     var body: some View {
-//        guard let illustration else { return Text("fail") }
         
         ScrollView {
             
@@ -25,7 +24,6 @@ struct IllustrationDetailView: View {
                     .padding()
 
                 if let url = illustration?.imageURL  {
-                    // TODO (!)
                     if let imageData = try? Data(contentsOf: URL(
                         string: "file://" + url)!
                     ),
@@ -41,7 +39,7 @@ struct IllustrationDetailView: View {
                             .foregroundColor(.gray)
                     }
                 } else {
-                    Text("...ждём")
+                    Text("...wait")
                 }
             }
         }.onAppear {

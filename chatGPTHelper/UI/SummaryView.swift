@@ -31,8 +31,6 @@ struct SummaryView: View {
             }
         }
         .onAppear() {
-            print("onappear")
-            //TODO не читаем из локали, если массив непустой
             dependencies.interactors.summary.onAppear()
         }
     }

@@ -47,9 +47,8 @@ struct ContentView: View {
                 }
             }
         }.onAppear() {
-            //TODO перенести
             container.set(promptParamsModel: promptParamsModel)
-            self.container.localRepository.modelContext = modelContext
+            container.localRepository.modelContext = modelContext
             container.interactors.contentView.onAppear()
         }
     }

@@ -19,9 +19,7 @@ class DIContainer: ObservableObject {
         self.webRepository = webRepository
         self.localRepository = localRepository
     }
-        
-    
-    //TODO: Move
+            
     func set(promptParamsModel: PromptParamsModel) {
         [
             self.interactors.summary,

@@ -33,7 +33,6 @@ class PromptParamsModel: ObservableObject {
     @Published var isMockEnabled = false
     @Published var summaries = [SummaryData]()
     
-    // TODO разделить
     var chapters = [String]()
 }
 
@@ -65,8 +64,15 @@ final class IllustrationContainer: ObservableObject, Identifiable {
         self.prompt = prompt
         self.imageURL = imageURL
     }
+
+    init(from illustration: Illustration) {
+        self.id = UUID()
+        self.quote = illustration.quote
+        self.imageURL = illustration.imageURL
+        self.prompt = illustration.prompt
+    }
     
-    func getIllustration() -> Illustration {
+    func asIllustration() -> Illustration {
         let illustration = Illustration()
         illustration.quote = quote
         illustration.prompt = prompt

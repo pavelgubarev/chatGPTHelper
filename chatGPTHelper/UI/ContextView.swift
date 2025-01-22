@@ -32,20 +32,18 @@ struct ContextView: View {
     var body: some View {
         VStack {
             ForEach(PromptKeys.allCases, id: \.self) { key in
-                //TODO: better unwrapping
+                if var prompt = promptParamsModel.prompts[key] {
                     TextEditor(text: Binding(
-                        get: { promptParamsModel.prompts[key]?.value ?? "" },
+                        get: { prompt.value },
                         set: {
-                            promptParamsModel.prompts[key]?.value = $0
+                            prompt.value = $0
                             saveText()
                         }
                     )
                     )
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-//                        .onChange(of: promptParamsModel.prompts[key] ?? ObservableString()) { newValue in 
-//                            
-//                        }
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:chatGPTHelper}",
+            "name": "Debug chatGPTHelper",
+            "program": "${workspaceFolder:chatGPTHelper}/.build/debug/chatGPTHelper",
+            "preLaunchTask": "swift: Build Debug chatGPTHelper"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:chatGPTHelper}",
+            "name": "Release chatGPTHelper",
+            "program": "${workspaceFolder:chatGPTHelper}/.build/release/chatGPTHelper",
+            "preLaunchTask": "swift: Build Release chatGPTHelper"
+        }
+    ]
+}

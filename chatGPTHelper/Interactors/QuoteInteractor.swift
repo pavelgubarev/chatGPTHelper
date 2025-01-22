@@ -53,12 +53,7 @@ final class QuoteInteractor: Interactor {
             guard let localURL else { return }
             
             illustration.imageURL = localURL
-            
-            let illustrationContainer = IllustrationContainer()
-            illustrationContainer.quote = illustration.quote
-            illustrationContainer.prompt = illustration.prompt
-            illustrationContainer.imageURL = localURL
-            
+            let illustrationContainer = IllustrationContainer(from: illustration)
             self.localRepository.save(illustrationContainer)
         }    
     }
@@ -80,8 +75,7 @@ final class QuoteInteractor: Interactor {
     @MainActor
     func requestQuote() async -> String? {
         var usedQuotes = ""
-        //TODO: remove prefix
-        _ = illustrationsViewModel.illustrations.map { usedQuotes = usedQuotes + $0.quote.prefix(200) + ", " }
+        _ = illustrationsViewModel.illustrations.map { usedQuotes = usedQuotes + $0.quote.prefix(300) + ", " }
         
         guard let chapter = promptParamsModel?.chapters.randomElement() else { return nil }
         
@@ -94,8 +88,7 @@ final class QuoteInteractor: Interactor {
         async let result = webRepository.fetchChatGPTResponse(prompt: prompt)
         
         do {
-            let response = try await result
-            return response
+            return try await result
         } catch {
             print("Failed to fetch summary for a chapter: \(error)")
             return nil
@@ -126,7 +119,7 @@ final class QuoteInteractor: Interactor {
         isLocalCacheLoaded = true
         DispatchQueue.main.async {
             for savedItem in result {
-                let illustration = savedItem.getIllustration()
+                let illustration = savedItem.asIllustration()
                 self.illustrationsViewModel.illustrations.insert(illustration, at: .zero)
             }
         }
