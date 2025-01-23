@@ -59,7 +59,7 @@ final class Assembly {
 
 struct Interactors {
     let summary: SummaryInteractorProtocol
-    let quote: QuoteInteractor
+    let quote: QuoteInteractorProtocol
     let contentView: ContentViewInteractor
     let illDetail: IllustrationDetailViewInteractor
     let settings: SettingsInteractorProtocol 

@@ -7,6 +7,12 @@
 
 import Foundation
 import SwiftData
+
+protocol QuoteInteractorProtocol: Interactor {
+    var illustrationsViewModel: IllustrationsViewModel { get }
+    func didTapGetIllustration() async
+    func onAppear()
+}
     
 class Illustration: ObservableObject, Identifiable {    
     @Published var quote: String
@@ -25,12 +31,12 @@ final class IllustrationsViewModel: ObservableObject {
     @Published var illustrations = [Illustration]()
 }
 
-final class QuoteInteractor: Interactor {
-    var chapter = ""
+final class QuoteInteractor: Interactor, QuoteInteractorProtocol {
         
     let illustrationsViewModel = IllustrationsViewModel()
     
-    var isLocalCacheLoaded = false
+    private var chapter = ""
+    private var isLocalCacheLoaded = false
     
     @MainActor
     func didTapGetIllustration() async {
@@ -57,7 +63,7 @@ final class QuoteInteractor: Interactor {
     }
 
     @MainActor
-    func requestImage(prompt: String) async -> String {
+    private func requestImage(prompt: String) async -> String {
         async let result = webRepository.fetchChatGPTImageResponse(prompt: prompt)
         
         do {
@@ -71,7 +77,7 @@ final class QuoteInteractor: Interactor {
     }
     
     @MainActor
-    func requestQuote() async -> String? {
+    private func requestQuote() async -> String? {
         var usedQuotes = ""
         _ = illustrationsViewModel.illustrations.map { usedQuotes = usedQuotes + $0.quote.prefix(300) + ", " }
         
@@ -127,5 +133,3 @@ final class QuoteInteractor: Interactor {
         }
     }
 }
-
-
