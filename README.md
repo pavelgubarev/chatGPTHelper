@@ -6,3 +6,5 @@ Uses ChatGPT API to
 3. Build a prompt for the illustration
 4. Request an illustration
 5. Keep all the data organized
+
+![Screenshot](screenshot.png)
