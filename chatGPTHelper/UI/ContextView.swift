@@ -34,13 +34,14 @@ struct ContextView: View {
             ForEach(PromptKeys.allCases, id: \.self) { key in
                 if let prompt = promptParamsModel.prompts[key] {
                     Text(String(describing: key))
-                    TextEditor(text: Binding(
-                        get: { prompt.value },
-                        set: {
-                            prompt.value = $0
-                            saveText()
-                        }
-                    )
+                    TextEditor(
+                        text: Binding(
+                            get: { prompt.value },
+                            set: {
+                                prompt.value = $0
+                                saveText()
+                            }
+                        )
                     )
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
@@ -55,6 +56,8 @@ struct ContextView: View {
         }
     }
     
+
+    // TODO: TO BE MOVED TO INTERACTOR
     private func fetchPromptsTexts() {
         if let data = promptsData.first {
             for (key, prompt) in data.prompts {
