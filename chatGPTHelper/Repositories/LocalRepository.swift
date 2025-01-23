@@ -22,7 +22,7 @@ protocol LocalRepositoryProtocol {
 
 final class LocalRepository: LocalRepositoryProtocol {
     var modelContext: ModelContext?
-
+    
     func fetch<T: PersistentModel>() -> [T]? {
         let fetchRequest = FetchDescriptor<T>()
         do {
@@ -61,10 +61,19 @@ final class LocalRepository: LocalRepositoryProtocol {
             print("Failed to save object: \(error)")
             // TODO: Handle error properly (e.g., error reporting or retry logic)
         }
-    }    
+    }
     
-    // TODO split
     func downloadAndSaveImage(from url: String, completion: @escaping (String?) -> Void) {
+        downloadImage(from: url) { data in
+            guard let data = data else {
+                completion(nil)
+                return
+            }
+            self.saveImage(data: data, completion: completion)
+        }
+    }
+    
+    private func downloadImage(from url: String, completion: @escaping (Data?) -> Void) {
         guard let url = URL(string: url) else { return }
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
@@ -72,25 +81,29 @@ final class LocalRepository: LocalRepositoryProtocol {
                 completion(nil)
                 return
             }
-
+            
             guard let data = data else {
                 print("Invalid image data")
                 completion(nil)
                 return
             }
-
-            do {
-                let filename = UUID().uuidString + ".jpg"
-                let fileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-                    .appendingPathComponent(filename)
-                try data.write(to: fileURL)
-                print("Image saved locally at: \(fileURL.path)")
-                completion(fileURL.path)
-            } catch {
-                print("Failed to save image: \(error)")
-                completion(nil)
-            }
+            
+            completion(data)
         }
         task.resume()
+    }
+    
+    private func saveImage(data: Data, completion: @escaping (String?) -> Void) {
+        do {
+            let filename = UUID().uuidString + ".jpg"
+            let fileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                .appendingPathComponent(filename)
+            try data.write(to: fileURL)
+            print("Image saved locally at: \(fileURL.path)")
+            completion(fileURL.path)
+        } catch {
+            print("Failed to save image: \(error)")
+            completion(nil)
+        }
     }
 }

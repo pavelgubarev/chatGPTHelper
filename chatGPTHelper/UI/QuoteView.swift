@@ -11,7 +11,7 @@ struct QuoteView: View {
     @EnvironmentObject private var dependencies: DIContainer
     @EnvironmentObject private var promptParamsModel: PromptParamsModel
     
-    @StateObject private var illustrations = IllustrationsViewModel()
+    @StateObject private var illustrationsContainer = IllustrationsViewModel()
     @Binding var navigationPath: NavigationPath
     
     let columns = [
@@ -45,7 +45,7 @@ struct QuoteView: View {
                     }
                 }
                 .padding()
-                .onReceive(dependencies.interactors.quote.illustrationsViewModel.$illustrations) { self.illustrations.illustrations = $0 }
+                .onReceive(dependencies.interactors.quote.illustrationsViewModel.$illustrations) { self.illustrationsContainer.illustrations = $0 }
             }
         }.onAppear {
             dependencies.interactors.quote.onAppear()

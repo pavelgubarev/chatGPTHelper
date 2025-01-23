@@ -8,9 +8,7 @@
 import Foundation
 import SwiftData
     
-class Illustration: ObservableObject, Identifiable {
-    let id = UUID()
-    
+class Illustration: ObservableObject, Identifiable {    
     @Published var quote: String
     @Published var prompt: String
     @Published var imageURL: String
@@ -54,7 +52,8 @@ final class QuoteInteractor: Interactor {
             illustration.imageURL = localURL
             let illustrationContainer = IllustrationContainer(from: illustration)
             self.localRepository.save(illustrationContainer)
-        }    
+            illustration.persistentID = illustrationContainer.persistentModelID
+        }
     }
 
     @MainActor
