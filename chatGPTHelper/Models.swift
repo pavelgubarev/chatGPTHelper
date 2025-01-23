@@ -52,21 +52,17 @@ final class SummaryData {
 
 @Model
 final class IllustrationContainer: ObservableObject, Identifiable {
-    @Attribute(.unique) var id: UUID
-
     var quote: String = ""
     var prompt: String = ""
     var imageURL: String = ""
         
     init(quote: String = "", prompt: String = "", imageURL: String = "") {
-        self.id = UUID()
         self.quote = quote
         self.prompt = prompt
         self.imageURL = imageURL
     }
 
     init(from illustration: Illustration) {
-        self.id = UUID()
         self.quote = illustration.quote
         self.imageURL = illustration.imageURL
         self.prompt = illustration.prompt
@@ -77,7 +73,7 @@ final class IllustrationContainer: ObservableObject, Identifiable {
         illustration.quote = quote
         illustration.prompt = prompt
         illustration.imageURL = imageURL
-        illustration.persistentID = id
+        illustration.persistentID = persistentModelID
         return illustration
     }
 }

@@ -12,10 +12,8 @@ struct IllustrationDetailView: View {
     @State var illustration: Illustration?
     @EnvironmentObject private var dependencies: DIContainer
 
-    var body: some View {
-        
-        ScrollView {
-            
+    var body: some View {        
+        ScrollView {            
             VStack {
                 Text(illustration?.quote ?? "")
                     .padding()

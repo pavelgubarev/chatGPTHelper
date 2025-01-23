@@ -55,7 +55,6 @@ struct ContextView: View {
             }
         }
     }
-    
 
     // TODO: TO BE MOVED TO INTERACTOR
     private func fetchPromptsTexts() {

@@ -3,3 +3,5 @@ chatGPTHelper/Settings.swift
 chatGPTHelper/Katya.txt
 .build/*
 chatGPTHelper.xcodeproj/xcuserdata/pavelgubarev.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+*.xcbkptlist
+*.xcbkptlist
