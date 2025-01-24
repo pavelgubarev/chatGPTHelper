@@ -50,10 +50,11 @@ struct QuoteView: View {
                     self.illustrationsContainer.illustrations = $0
                 }
             }
+            .scrollIndicators(.hidden)
         }.onAppear {
-            dependencies.interactors.quote.onAppear()
+            dependencies.interactors.quote.loadLocalCache()
         }.onChange(of: appStateModel.isQuoteLocalCacheValid) {
-            dependencies.interactors.quote.onAppear()
+            dependencies.interactors.quote.loadLocalCache()
         }
     }
 }

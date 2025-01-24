@@ -11,7 +11,7 @@ import SwiftData
 protocol QuoteInteractorProtocol: Interactor {
     var illustrationsViewModel: IllustrationsViewModel { get }
     func didTapGetIllustration() async
-    func onAppear()
+    func loadLocalCache()
 }
     
 class Illustration: ObservableObject, Identifiable, Equatable {
@@ -121,7 +121,7 @@ final class QuoteInteractor: Interactor, QuoteInteractorProtocol {
     }
 
     @MainActor
-    func onAppear() {
+    func loadLocalCache() {
         guard let appStateModel,
                 !appStateModel.isQuoteLocalCacheValid,
               let result: [IllustrationContainer] = localRepository.fetch() else { return }
