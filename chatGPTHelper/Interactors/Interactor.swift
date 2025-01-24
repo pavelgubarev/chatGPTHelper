@@ -12,15 +12,15 @@ class Interactor {
     let webRepository: WebRepositoryProtocol
     let localRepository: LocalRepositoryProtocol
 
-    var promptParamsModel: PromptParamsModel?
+    var appStateModel: AppStateModel?
 
     required init(webRepository: WebRepositoryProtocol, localRepository: LocalRepositoryProtocol) {
         self.webRepository = webRepository
         self.localRepository = localRepository
     }
     
-    func configure(promptParamsModel: PromptParamsModel) {
-        self.promptParamsModel = promptParamsModel
+    func configure(appStateModel: AppStateModel) {
+        self.appStateModel = appStateModel
     }
             
     //TODO вынести в хелпер
@@ -37,6 +37,6 @@ class Interactor {
         } catch {
             print("Error reading file: \(error)")
         }
-        promptParamsModel?.chapters = wholeText.components(separatedBy: "##").filter { $0.count > 10 }
+        appStateModel?.chapters = wholeText.components(separatedBy: "##").filter { $0.count > 10 }
     }
 }

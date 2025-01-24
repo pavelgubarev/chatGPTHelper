@@ -16,12 +16,12 @@ final class ContentViewInteractor: Interactor {
         if let data: [PromptsData] = localRepository.fetch() {
             if let promptsData = data.first {
                 for (key, prompt) in promptsData.prompts {
-                    promptParamsModel?.prompts[key] = ObservableString(value: prompt)
+                    appStateModel?.prompts[key] = ObservableString(value: prompt)
                 }
             } else {
                 //TODO: set correct default values
                 for key in PromptKeys.allCases {
-                    promptParamsModel?.prompts[key] = ObservableString(value: "default")
+                    appStateModel?.prompts[key] = ObservableString(value: "default")
                 }
             }
         }

@@ -18,17 +18,17 @@ final class SettingsInteractor: Interactor, SettingsInteractorProtocol {
 
     // func fetchText() {
     //     if let data = mockedResponseData.first {
-    //         promptParamsModel?.mockText = data.text
+    //         appStateModel?.mockText = data.text
     //     }
-    //     print(promptParamsModel?.mockText ?? "")
+    //     print(appStateModel?.mockText ?? "")
     // }
 
     // func saveText() {
     //     if let existingData = mockedResponseData.first {
-    //         existingData.text = promptParamsModel?.mockText ?? ""
-    //         existingData.isEnabled = promptParamsModel?.isMockEnabled ?? false
+    //         existingData.text = appStateModel?.mockText ?? ""
+    //         existingData.isEnabled = appStateModel?.isMockEnabled ?? false
     //     } else {
-    //         let newData = MockedResponseData(text: promptParamsModel?.mockText ?? "", isEnabled: promptParamsModel?.isMockEnabled ?? false)
+    //         let newData = MockedResponseData(text: appStateModel?.mockText ?? "", isEnabled: appStateModel?.isMockEnabled ?? false)
     //         localRepository.save(newData)
     //     }
 

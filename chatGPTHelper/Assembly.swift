@@ -20,16 +20,16 @@ class DIContainer: ObservableObject {
         self.localRepository = localRepository
     }
             
-    func set(promptParamsModel: PromptParamsModel) {
+    func set(appStateModel: AppStateModel) {
         [
             self.interactors.summary,
             self.interactors.quote,
             self.interactors.contentView,
             self.interactors.illDetail,
             self.interactors.settings 
-        ].forEach { $0.configure(promptParamsModel: promptParamsModel) }
+        ].forEach { $0.configure(appStateModel: appStateModel) }
 
-        self.webRepository.configure(promptParamsModel: promptParamsModel)
+        self.webRepository.configure(appStateModel: appStateModel)
     }
 }
 
@@ -61,6 +61,6 @@ struct Interactors {
     let summary: SummaryInteractorProtocol
     let quote: QuoteInteractorProtocol
     let contentView: ContentViewInteractor
-    let illDetail: IllustrationDetailViewInteractor
+    let illDetail: IllustrationDetailViewInteractorProtocol
     let settings: SettingsInteractorProtocol 
 }

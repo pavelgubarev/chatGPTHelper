@@ -21,11 +21,11 @@ final class SummaryInteractor: Interactor, SummaryInteractorProtocol {
     func requestAllSummaries() {        
         removeOldSummaries()
         setupText()
-        guard let chapters = promptParamsModel?.chapters else { return }
+        guard let chapters = appStateModel?.chapters else { return }
 
         Task {
             for (index, chapter) in chapters.enumerated().prefix(2) {
-                guard let promptInitialText = self.promptParamsModel?.prompts[.summary]?.value else { return }
+                guard let promptInitialText = self.appStateModel?.prompts[.summary]?.value else { return }
                 
                 async let result = webRepository.fetchChatGPTResponse(prompt: promptInitialText + chapter)
                 
@@ -33,7 +33,7 @@ final class SummaryInteractor: Interactor, SummaryInteractorProtocol {
                     let response = try await result
                     let summaryObject = SummaryData(chapterNumber: index, text: response)
                     DispatchQueue.main.async {
-                        self.promptParamsModel?.summaries.append(summaryObject)
+                        self.appStateModel?.summaries.append(summaryObject)
                         self.localRepository.save(summaryObject)
                     }
                 } catch {
@@ -49,14 +49,14 @@ final class SummaryInteractor: Interactor, SummaryInteractorProtocol {
         
         self.isLocalCacheLoaded = true
         DispatchQueue.main.async {
-            self.promptParamsModel?.summaries = result
+            self.appStateModel?.summaries = result
         }
     }
     
     private func removeOldSummaries() {
         DispatchQueue.main.async {
             self.localRepository.deleteAllSummaries()
-            self.promptParamsModel?.summaries = []
+            self.appStateModel?.summaries = []
         }
     }
 }

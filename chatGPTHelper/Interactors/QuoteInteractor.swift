@@ -14,7 +14,8 @@ protocol QuoteInteractorProtocol: Interactor {
     func onAppear()
 }
     
-class Illustration: ObservableObject, Identifiable {    
+class Illustration: ObservableObject, Identifiable, Equatable {
+    
     @Published var quote: String
     @Published var prompt: String
     @Published var imageURL: String
@@ -24,6 +25,10 @@ class Illustration: ObservableObject, Identifiable {
         quote = ""
         prompt = ""
         imageURL = ""
+    }
+    
+    static func == (lhs: Illustration, rhs: Illustration) -> Bool {
+        lhs.persistentID == rhs.persistentID
     }
 }
 
@@ -36,7 +41,6 @@ final class QuoteInteractor: Interactor, QuoteInteractorProtocol {
     let illustrationsViewModel = IllustrationsViewModel()
     
     private var chapter = ""
-    private var isLocalCacheLoaded = false
     
     @MainActor
     func didTapGetIllustration() async {
@@ -81,11 +85,11 @@ final class QuoteInteractor: Interactor, QuoteInteractorProtocol {
         var usedQuotes = ""
         _ = illustrationsViewModel.illustrations.map { usedQuotes = usedQuotes + $0.quote.prefix(300) + ", " }
         
-        guard let chapter = promptParamsModel?.chapters.randomElement() else { return nil }
+        guard let chapter = appStateModel?.chapters.randomElement() else { return nil }
         
         self.chapter = chapter
         
-        guard let promptInitialText = promptParamsModel?.prompts[.quote]?.value else { return nil }
+        guard let promptInitialText = appStateModel?.prompts[.quote]?.value else { return nil }
         
         let prompt = promptInitialText + chapter + "Далее список цитат, которые ты уже выбирал. Не используй их: " + usedQuotes
         
@@ -101,7 +105,7 @@ final class QuoteInteractor: Interactor, QuoteInteractorProtocol {
  
     @MainActor
     private func requestPrompt(quote: String) async -> String? {
-        guard let promptInitialText = promptParamsModel?.prompts[.prompt]?.value else { return nil }
+        guard let promptInitialText = appStateModel?.prompts[.prompt]?.value else { return nil }
         let prompt = promptInitialText + quote + " Цитата взята из этой главы: " + chapter
                
         async let result = webRepository.fetchChatGPTResponse(prompt: prompt)
@@ -116,20 +120,19 @@ final class QuoteInteractor: Interactor, QuoteInteractorProtocol {
         }
     }
 
+    @MainActor
     func onAppear() {
-        guard !isLocalCacheLoaded,
+        guard let appStateModel,
+                !appStateModel.isQuoteLocalCacheValid,
               let result: [IllustrationContainer] = localRepository.fetch() else { return }
         
         DispatchQueue.main.async {
             self.setupText()
         }
-        
-        isLocalCacheLoaded = true
+
+        appStateModel.isQuoteLocalCacheValid = true
         DispatchQueue.main.async {
-            for savedItem in result {
-                let illustration = savedItem.asIllustration()
-                self.illustrationsViewModel.illustrations.insert(illustration, at: .zero)
-            }
+            self.illustrationsViewModel.illustrations = result.map{ $0.asIllustration() }.reversed()
         }
     }
 }

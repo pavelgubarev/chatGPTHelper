@@ -24,7 +24,7 @@ final class WebRepositoryMock: WebRepositoryProtocol {
         return ""
     }
     
-    func configure(promptParamsModel: chatGPTHelper.PromptParamsModel) {
+    func configure(appStateModel: chatGPTHelper.AppStateModel) {
         isConfigureCalled = true
     }
 }

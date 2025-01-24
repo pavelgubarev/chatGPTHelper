@@ -9,12 +9,18 @@ import SwiftUI
 
 struct IllustrationDetailView: View {
     let data: IllustrationDetailViewData
+    @Binding var path: NavigationPath
     @State var illustration: Illustration?
     @EnvironmentObject private var dependencies: DIContainer
-
-    var body: some View {        
+    
+    var body: some View {
         ScrollView {            
             VStack {
+                Button("Delete") {
+                    dependencies.interactors.illDetail.delete(id: data.id)
+                    path.removeLast()
+                }                
+                
                 Text(illustration?.quote ?? "")
                     .padding()
 

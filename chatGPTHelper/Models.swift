@@ -26,7 +26,7 @@ class ObservableString: ObservableObject, Equatable {
 }
 
 @MainActor
-class PromptParamsModel: ObservableObject {    
+class AppStateModel: ObservableObject {    
     var prompts: [PromptKeys: ObservableString] = [:]
 
     @Published var mockText = ""
@@ -34,16 +34,16 @@ class PromptParamsModel: ObservableObject {
     @Published var summaries = [SummaryData]()
     
     var chapters = [String]()
+    
+    var isQuoteLocalCacheValid = false
 }
 
 @Model
 final class SummaryData {
-    @Attribute(.unique) var id: UUID
     var chapterNumber: Int
     var text: String
     
     init(chapterNumber: Int, text: String) {
-        self.id = UUID()
         self.chapterNumber = chapterNumber
         self.text = text
     }

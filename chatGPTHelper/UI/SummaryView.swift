@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SummaryView: View {
     @EnvironmentObject private var dependencies: DIContainer
-    @EnvironmentObject private var promptParamsModel: PromptParamsModel
+    @EnvironmentObject private var appStateModel: AppStateModel
     
     let columns = [
         GridItem(.adaptive(minimum: 300))
@@ -24,7 +24,7 @@ struct SummaryView: View {
             }.padding()
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
-                    ForEach(promptParamsModel.summaries, id: \.self) { summary in
+                    ForEach(appStateModel.summaries, id: \.self) { summary in
                         scrollableTextCard(text: summary.text)
                     }
                 }

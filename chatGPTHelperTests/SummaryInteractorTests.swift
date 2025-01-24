@@ -23,10 +23,10 @@ final class SummaryInteractorTests: XCTestCase {
     
     @MainActor func test_onAppear() {
         // Arrange
-        let expectation = XCTestExpectation(description: "promptParamsModel should be updated")
-        sut.configure(promptParamsModel: PromptParamsModel())
+        let expectation = XCTestExpectation(description: "appStateModel should be updated")
+        sut.configure(appStateModel: AppStateModel())
         
-        (sut as! SummaryInteractor).promptParamsModel?.$summaries
+        (sut as! SummaryInteractor).appStateModel?.$summaries
             .dropFirst()
             .sink { value in
                 XCTAssertNotNil(value)
@@ -40,16 +40,16 @@ final class SummaryInteractorTests: XCTestCase {
         // Assert
         XCTAssertTrue(localRepositoryMock.isFetchCalled)
         wait(for: [expectation], timeout: 1.0)
-        XCTAssertEqual(sut.promptParamsModel?.summaries.count, 1)
+        XCTAssertEqual(sut.appStateModel?.summaries.count, 1)
     }
     
     @MainActor func test_fetchSummaries() {        
         // Arrange
-        sut.promptParamsModel = PromptParamsModel()
-        sut.promptParamsModel?.chapters = ["first", "second"]
+        sut.appStateModel = AppStateModel()
+        sut.appStateModel?.chapters = ["first", "second"]
         
-        let expectation = XCTestExpectation(description: "promptParamsModel should be updated")
-        (sut as! SummaryInteractor).promptParamsModel?.$summaries
+        let expectation = XCTestExpectation(description: "appStateModel should be updated")
+        (sut as! SummaryInteractor).appStateModel?.$summaries
             .dropFirst() 
             .sink { value in
                 if value.count == 2 {
@@ -63,8 +63,8 @@ final class SummaryInteractorTests: XCTestCase {
         
         // Assert
         wait(for: [expectation], timeout: 1.0)
-        XCTAssertEqual(sut.promptParamsModel?.summaries.first!.text, "sample chat response")
-        XCTAssertEqual(sut.promptParamsModel?.summaries.last!.text, "sample chat response")
+        XCTAssertEqual(sut.appStateModel?.summaries.first!.text, "sample chat response")
+        XCTAssertEqual(sut.appStateModel?.summaries.last!.text, "sample chat response")
         XCTAssertTrue(localRepositoryMock.isSaveCalled)
     }
 }

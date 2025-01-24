@@ -13,6 +13,8 @@ protocol LocalRepositoryProtocol {
     
     func fetch<T: PersistentModel>(withID id: PersistentIdentifier) -> T? where T: Identifiable
     
+    func delete(withID id: PersistentIdentifier)
+    
     func deleteAllSummaries()
     
     func save<T: PersistentModel>(_ object: T)
@@ -35,10 +37,18 @@ final class LocalRepository: LocalRepositoryProtocol {
     }
     
     func fetch<T: PersistentModel>(withID id: PersistentIdentifier) -> T? where T: Identifiable {
-        let result = modelContext?.model(for: id) as? T
-        return result
+        return modelContext?.model(for: id) as? T
     }
     
+    func delete(withID id: PersistentIdentifier) {
+        guard let object = modelContext?.model(for: id) else {
+            print("cannot find object to delete")
+            return
+        }
+        
+        modelContext?.delete(object)
+    }
+
     func deleteAllSummaries() {
         do {
             try modelContext?.delete(model: SummaryData.self)

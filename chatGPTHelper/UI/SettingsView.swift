@@ -27,14 +27,14 @@ struct SettingsView: View {
     @EnvironmentObject private var dependencies: DIContainer
     @Environment(\.modelContext) private var modelContext
     @Query private var mockedResponseData: [MockedResponseData]
-    @EnvironmentObject private var promptParamsModel: PromptParamsModel
+    @EnvironmentObject private var appStateModel: AppStateModel
 
     var body: some View {
         GeometryReader { geometry in
             VStack {
                 HStack {
                     Text("Should use mock")
-                    Picker("Switch On/Off", selection: $promptParamsModel.isMockEnabled) {
+                    Picker("Switch On/Off", selection: $appStateModel.isMockEnabled) {
                         Text("On")
                             .tag(true)
                         Text("Off")
@@ -43,10 +43,10 @@ struct SettingsView: View {
                     .pickerStyle(.segmented)
                 }
                 Text("\(geometry.size.height)")
-                TextEditor(text: $promptParamsModel.mockText)
+                TextEditor(text: $appStateModel.mockText)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(height: geometry.size.height * 0.5)
-                    .onChange(of: promptParamsModel.mockText, {
+                    .onChange(of: appStateModel.mockText, {
                         saveText()
                     }
                     )
@@ -64,18 +64,18 @@ struct SettingsView: View {
     
     private func fetchText() {
         if let data = mockedResponseData.first {
-            promptParamsModel.mockText = data.text
+            appStateModel.mockText = data.text
         }
-        print(promptParamsModel.mockText)
+        print(appStateModel.mockText)
     }
     
     private func saveText() {
         if let existingData = mockedResponseData.first {
-            existingData.text = promptParamsModel.mockText
-            existingData.isEnabled = promptParamsModel.isMockEnabled
+            existingData.text = appStateModel.mockText
+            existingData.isEnabled = appStateModel.isMockEnabled
         } else {
             // Create a new note if none exists
-            let newData = MockedResponseData(text: promptParamsModel.mockText, isEnabled: promptParamsModel.isMockEnabled)
+            let newData = MockedResponseData(text: appStateModel.mockText, isEnabled: appStateModel.isMockEnabled)
             modelContext.insert(newData)
         }
         

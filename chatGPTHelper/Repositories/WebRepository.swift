@@ -14,12 +14,12 @@ protocol WebRepositoryProtocol {
 
     func fetchChatGPTImageResponse(prompt: String) async throws -> String
 
-    func configure(promptParamsModel: PromptParamsModel)
+    func configure(appStateModel: AppStateModel)
 }
 
 final class WebRepository: WebRepositoryProtocol {
 
-    private var promptParamsModel: PromptParamsModel?
+    private var appStateModel: AppStateModel?
 
     func fetchChatGPTResponse(prompt: String) async throws -> String {
         let requestBody = ChatGPTRequest(
@@ -62,8 +62,8 @@ final class WebRepository: WebRepositoryProtocol {
         return response.data.first?.url ?? "No image URL received."
     }
     
-    func configure(promptParamsModel: PromptParamsModel) {
-        self.promptParamsModel = promptParamsModel
+    func configure(appStateModel: AppStateModel) {
+        self.appStateModel = appStateModel
     }
     
     private func fetchOpenAIResponse<RequestBody: Codable, ResponseBody: Codable>(

@@ -18,7 +18,7 @@ enum MenuItem: CaseIterable {
 struct ContentView: View {
     private let container: DIContainer
     @State private var selectedItem: MenuItem? = .Quote
-    @StateObject private var promptParamsModel = PromptParamsModel()
+    @StateObject private var appStateModel = AppStateModel()
     @Environment(\.modelContext) private var modelContext
     @State private var navigationPath = NavigationPath()
     
@@ -38,7 +38,7 @@ struct ContentView: View {
             NavigationStack(path: $navigationPath) {
                 if let selectedItem = selectedItem {
                     DetailView(selectedItem: selectedItem, navigationPath: $navigationPath)
-                        .environmentObject(promptParamsModel)
+                        .environmentObject(appStateModel)
                         .environmentObject(container)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
@@ -47,7 +47,7 @@ struct ContentView: View {
                 }
             }
         }.onAppear() {
-            container.set(promptParamsModel: promptParamsModel)
+            container.set(appStateModel: appStateModel)
             container.localRepository.modelContext = modelContext
             container.interactors.contentView.onAppear()
         }
@@ -60,7 +60,7 @@ struct IllustrationDetailViewData: Hashable {
 
 struct DetailView: View {
     let selectedItem: MenuItem
-    @EnvironmentObject private var promptParamsModel: PromptParamsModel
+    @EnvironmentObject private var appStateModel: AppStateModel
     @EnvironmentObject private var dependencies: DIContainer
     @Binding var navigationPath: NavigationPath
     
@@ -77,10 +77,13 @@ struct DetailView: View {
 //                SettingsView()
             }
         }
-        .environmentObject(promptParamsModel)
+        .environmentObject(appStateModel)
         .environmentObject(dependencies)
         .navigationDestination(for: IllustrationDetailViewData.self) { illustrationData in
-            IllustrationDetailView(data: illustrationData).environmentObject(dependencies)
+            IllustrationDetailView(
+                data: illustrationData,
+                path: $navigationPath
+            ).environmentObject(dependencies)
         }
     }
 }

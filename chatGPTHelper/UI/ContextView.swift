@@ -26,13 +26,13 @@ import SwiftUI
 struct ContextView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var promptsData: [PromptsData]
-    @EnvironmentObject private var promptParamsModel: PromptParamsModel
+    @EnvironmentObject private var appStateModel: AppStateModel
     @EnvironmentObject private var dependencies: DIContainer
 
     var body: some View {
         VStack {
             ForEach(PromptKeys.allCases, id: \.self) { key in
-                if let prompt = promptParamsModel.prompts[key] {
+                if let prompt = appStateModel.prompts[key] {
                     Text(String(describing: key))
                     TextEditor(
                         text: Binding(
@@ -50,7 +50,7 @@ struct ContextView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {
-            if promptParamsModel.prompts.isEmpty {
+            if appStateModel.prompts.isEmpty {
                 fetchPromptsTexts()
             }
         }
@@ -60,18 +60,18 @@ struct ContextView: View {
     private func fetchPromptsTexts() {
         if let data = promptsData.first {
             for (key, prompt) in data.prompts {
-                promptParamsModel.prompts[key] = ObservableString(value: prompt)
+                appStateModel.prompts[key] = ObservableString(value: prompt)
             }
         }
     }
     
     private func saveText() {
         if let existingData = promptsData.first {
-            for (key, prompt) in promptParamsModel.prompts {
+            for (key, prompt) in appStateModel.prompts {
                 existingData.prompts[key] = prompt.value
             }
         } else {
-            let newData = PromptsData(prompts: promptParamsModel.prompts)
+            let newData = PromptsData(prompts: appStateModel.prompts)
             modelContext.insert(newData)
         }
         do {

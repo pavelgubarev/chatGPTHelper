@@ -9,7 +9,7 @@ import SwiftUI
 
 struct QuoteView: View {
     @EnvironmentObject private var dependencies: DIContainer
-    @EnvironmentObject private var promptParamsModel: PromptParamsModel
+    @EnvironmentObject private var appStateModel: AppStateModel
     
     @StateObject private var illustrationsContainer = IllustrationsViewModel()
     @Binding var navigationPath: NavigationPath
@@ -45,9 +45,14 @@ struct QuoteView: View {
                     }
                 }
                 .padding()
-                .onReceive(dependencies.interactors.quote.illustrationsViewModel.$illustrations) { self.illustrationsContainer.illustrations = $0 }
+                .animation(.easeInOut, value: dependencies.interactors.quote.illustrationsViewModel.illustrations)
+                .onReceive(dependencies.interactors.quote.illustrationsViewModel.$illustrations) {
+                    self.illustrationsContainer.illustrations = $0
+                }
             }
         }.onAppear {
+            dependencies.interactors.quote.onAppear()
+        }.onChange(of: appStateModel.isQuoteLocalCacheValid) {
             dependencies.interactors.quote.onAppear()
         }
     }
@@ -80,6 +85,8 @@ struct IllustrationView: View {
                 Text("...ждём")
             }
         }
+        .transition(.scale) // Smooth entry/exit animation
+        .id(illustration.persistentID) // Necessary for animation to track items
     }
 }
 
