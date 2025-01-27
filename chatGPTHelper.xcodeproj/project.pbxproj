@@ -15,6 +15,7 @@
 		5006EBD02D144671006DB6C1 /* QuoteInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5006EBCF2D144671006DB6C1 /* QuoteInteractor.swift */; };
 		504977602D313B91009F5350 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5049775F2D313B91009F5350 /* Helpers.swift */; };
 		5050DF102D3AA60A0077707C /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5050DF0F2D3AA60A0077707C /* SettingsInteractor.swift */; };
+		5050DF122D43E0B10077707C /* MexicanGirl.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5050DF112D43E0B10077707C /* MexicanGirl.txt */; };
 		506442792D1EB51C0023E44E /* ContentViewInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506442782D1EB51C0023E44E /* ContentViewInteractor.swift */; };
 		5064427B2D1EC9880023E44E /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5064427A2D1EC9880023E44E /* Interactor.swift */; };
 		5064427D2D1F0FFD0023E44E /* IllustrationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5064427C2D1F0FFD0023E44E /* IllustrationDetailView.swift */; };
@@ -63,6 +64,7 @@
 		5006EBCF2D144671006DB6C1 /* QuoteInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteInteractor.swift; sourceTree = "<group>"; };
 		5049775F2D313B91009F5350 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		5050DF0F2D3AA60A0077707C /* SettingsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
+		5050DF112D43E0B10077707C /* MexicanGirl.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MexicanGirl.txt; sourceTree = "<group>"; };
 		506442782D1EB51C0023E44E /* ContentViewInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewInteractor.swift; sourceTree = "<group>"; };
 		5064427A2D1EC9880023E44E /* Interactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
 		5064427C2D1F0FFD0023E44E /* IllustrationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IllustrationDetailView.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				5006EBCC2D142388006DB6C1 /* Repositories */,
 				506EF7C92D0AE31200FDD5CA /* Preview Content */,
 				506EF7F62D10647300FDD5CA /* Settings.swift */,
+				5050DF112D43E0B10077707C /* MexicanGirl.txt */,
 				506EF7F82D106FB600FDD5CA /* Katya.txt */,
 				5006EBC42D11A3BC006DB6C1 /* Models.swift */,
 				5049775F2D313B91009F5350 /* Helpers.swift */,
@@ -320,6 +323,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5050DF122D43E0B10077707C /* MexicanGirl.txt in Resources */,
 				506EF7CB2D0AE31200FDD5CA /* Preview Assets.xcassets in Resources */,
 				506EF7C82D0AE31200FDD5CA /* Assets.xcassets in Resources */,
 				506EF7F92D106FB600FDD5CA /* Katya.txt in Resources */,

@@ -43,10 +43,10 @@ struct SettingsView: View {
                     .pickerStyle(.segmented)
                 }
                 Text("\(geometry.size.height)")
-                TextEditor(text: $appStateModel.mockText)
+                TextEditor(text: $appStateModel.textFileName)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(height: geometry.size.height * 0.5)
-                    .onChange(of: appStateModel.mockText, {
+                    .onChange(of: appStateModel.textFileName, {
                         saveText()
                     }
                     )

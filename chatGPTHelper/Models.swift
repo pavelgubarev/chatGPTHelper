@@ -35,15 +35,19 @@ class AppStateModel: ObservableObject {
     
     var chapters = [String]()
     
+    @Published var textFileName = ""
+    
     var isQuoteLocalCacheValid = false
 }
 
 @Model
 final class SummaryData {
+    var textFileName: String
     var chapterNumber: Int
     var text: String
     
-    init(chapterNumber: Int, text: String) {
+    init(chapterNumber: Int, text: String, textFileName: String) {
+        self.textFileName = textFileName
         self.chapterNumber = chapterNumber
         self.text = text
     }
@@ -52,20 +56,23 @@ final class SummaryData {
 
 @Model
 final class IllustrationContainer: ObservableObject, Identifiable {
+    var textFileName: String
     var quote: String = ""
     var prompt: String = ""
     var imageURL: String = ""
         
-    init(quote: String = "", prompt: String = "", imageURL: String = "") {
+    init(quote: String = "", prompt: String = "", imageURL: String = "", textFileName: String) {
+        self.textFileName = textFileName
         self.quote = quote
         self.prompt = prompt
         self.imageURL = imageURL
     }
 
-    init(from illustration: Illustration) {
+    init(from illustration: Illustration, textFileName: String) {
         self.quote = illustration.quote
         self.imageURL = illustration.imageURL
         self.prompt = illustration.prompt
+        self.textFileName = textFileName
     }
     
     func asIllustration() -> Illustration {
@@ -77,3 +84,18 @@ final class IllustrationContainer: ObservableObject, Identifiable {
         return illustration
     }
 }
+
+
+@Model
+final class PromptsData {
+    @Attribute(.unique) var id: UUID
+    var prompts: [PromptKeys: String] = [:]
+    
+    init(prompts: [PromptKeys: ObservableString]) {
+        self.id = UUID()
+        for (key, prompt) in prompts {
+            self.prompts[key] = prompt.value
+        }
+    }
+}
+

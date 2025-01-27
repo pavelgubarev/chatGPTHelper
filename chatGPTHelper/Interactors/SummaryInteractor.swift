@@ -31,7 +31,7 @@ final class SummaryInteractor: Interactor, SummaryInteractorProtocol {
                 
                 do {
                     let response = try await result
-                    let summaryObject = SummaryData(chapterNumber: index, text: response)
+                    let summaryObject = SummaryData(chapterNumber: index, text: response, textFileName: "MexicanGirl")
                     DispatchQueue.main.async {
                         self.appStateModel?.summaries.append(summaryObject)
                         self.localRepository.save(summaryObject)

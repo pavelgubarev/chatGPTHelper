@@ -7,20 +7,6 @@
 
 import SwiftData
 import Combine
-
-@Model
-final class PromptsData {
-    @Attribute(.unique) var id: UUID
-    var prompts: [PromptKeys: String] = [:]
-    
-    init(prompts: [PromptKeys: ObservableString]) {
-        self.id = UUID()
-        for (key, prompt) in prompts {
-            self.prompts[key] = prompt.value
-        }
-    }
-}
-
 import SwiftUI
 
 struct ContextView: View {

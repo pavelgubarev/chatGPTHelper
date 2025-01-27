@@ -60,7 +60,7 @@ final class QuoteInteractor: Interactor, QuoteInteractorProtocol {
             guard let localURL else { return }
             
             illustration.imageURL = localURL
-            let illustrationContainer = IllustrationContainer(from: illustration)
+            let illustrationContainer = IllustrationContainer(from: illustration, textFileName: "MexicanGirl")
             self.localRepository.save(illustrationContainer)
             illustration.persistentID = illustrationContainer.persistentModelID
         }

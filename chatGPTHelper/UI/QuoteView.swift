@@ -68,6 +68,8 @@ struct IllustrationView: View {
                 .foregroundColor(.gray)
                 .frame(height: 100)
             
+            Text(illustration.imageURL)
+            
             if illustration.imageURL != "" {
                 if let imageData = try? Data(contentsOf: URL(
                     string: "file://" + illustration.imageURL)!
