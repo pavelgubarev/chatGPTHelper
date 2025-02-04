@@ -25,7 +25,9 @@ struct ContextView: View {
                             get: { prompt.value },
                             set: {
                                 prompt.value = $0
-                                saveText()
+                                Task(priority: .background) {
+                                    saveText()
+                                }
                             }
                         )
                     )

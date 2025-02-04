@@ -12,7 +12,7 @@ enum MenuItem: CaseIterable {
     case Summary
     case Quote
     case Context
-//    case Settings
+    case Settings
 }
 
 struct ContentView: View {
@@ -73,8 +73,8 @@ struct DetailView: View {
                 QuoteView(navigationPath: $navigationPath)
             case .Context:
                 ContextView()
-//            case .Settings:
-//                SettingsView()
+            case .Settings:
+                SettingsView()
             }
         }
         .environmentObject(appStateModel)

@@ -42,14 +42,17 @@ struct SettingsView: View {
                     }
                     .pickerStyle(.segmented)
                 }
-                Text("\(geometry.size.height)")
-                TextEditor(text: $appStateModel.textFileName)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .frame(height: geometry.size.height * 0.5)
-                    .onChange(of: appStateModel.textFileName, {
-                        saveText()
+                HStack {
+                    Text("Source file")
+                    Picker("File to read", selection: $appStateModel.textFileName) {
+                        ForEach(dependencies.interactors.settings.getFiles(), id: \.self) { fileName in
+                            Text(fileName).tag(fileName)
+                        }
+                    }.onChange(of: appStateModel.textFileName) {
+                        dependencies.interactors.settings.didChangeSourceFile()
                     }
-                    )
+                }
+                
                 Spacer()
                 Button("fetch") {
                     fetchText()

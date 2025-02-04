@@ -60,7 +60,7 @@ final class QuoteInteractor: Interactor, QuoteInteractorProtocol {
             guard let localURL else { return }
             
             illustration.imageURL = localURL
-            let illustrationContainer = IllustrationContainer(from: illustration, textFileName: "MexicanGirl")
+            let illustrationContainer = IllustrationContainer(from: illustration, textFileName: self.appStateModel?.textFileName ?? "")
             self.localRepository.save(illustrationContainer)
             illustration.persistentID = illustrationContainer.persistentModelID
         }
@@ -123,16 +123,26 @@ final class QuoteInteractor: Interactor, QuoteInteractorProtocol {
     @MainActor
     func loadLocalCache() {
         guard let appStateModel,
-                !appStateModel.isQuoteLocalCacheValid,
-              let result: [IllustrationContainer] = localRepository.fetch() else { return }
+              !appStateModel.isQuoteLocalCacheValid
+        else { return }
         
+        let fileName = appStateModel.textFileName        
+        let predicate = #Predicate<(IllustrationContainer)> {
+            $0.textFileName == fileName
+        }
+        guard let result: [IllustrationContainer] = localRepository.fetch(withPredicate: predicate) else { return }
+
         DispatchQueue.main.async {
             self.setupText()
         }
 
         appStateModel.isQuoteLocalCacheValid = true
         DispatchQueue.main.async {
-            self.illustrationsViewModel.illustrations = result.map{ $0.asIllustration() }.reversed()
+            self.illustrationsViewModel.illustrations = result.map{
+                print($0.textFileName)
+                return $0.asIllustration()
+                
+            }.reversed()
         }
     }
 }

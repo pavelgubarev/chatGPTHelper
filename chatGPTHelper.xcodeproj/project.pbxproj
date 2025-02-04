@@ -184,8 +184,7 @@
 				5006EBCC2D142388006DB6C1 /* Repositories */,
 				506EF7C92D0AE31200FDD5CA /* Preview Content */,
 				506EF7F62D10647300FDD5CA /* Settings.swift */,
-				5050DF112D43E0B10077707C /* MexicanGirl.txt */,
-				506EF7F82D106FB600FDD5CA /* Katya.txt */,
+				50B161A32D50C9B600E41FEA /* Texts */,
 				5006EBC42D11A3BC006DB6C1 /* Models.swift */,
 				5049775F2D313B91009F5350 /* Helpers.swift */,
 			);
@@ -217,6 +216,15 @@
 				506EF7E12D0AE31200FDD5CA /* chatGPTHelperUITestsLaunchTests.swift */,
 			);
 			path = chatGPTHelperUITests;
+			sourceTree = "<group>";
+		};
+		50B161A32D50C9B600E41FEA /* Texts */ = {
+			isa = PBXGroup;
+			children = (
+				5050DF112D43E0B10077707C /* MexicanGirl.txt */,
+				506EF7F82D106FB600FDD5CA /* Katya.txt */,
+			);
+			path = Texts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

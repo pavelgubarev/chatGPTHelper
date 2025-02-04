@@ -35,14 +35,24 @@ class AppStateModel: ObservableObject {
     
     var chapters = [String]()
     
-    @Published var textFileName = ""
+    @Published var textFileName: String = "Katya"
     
     var isQuoteLocalCacheValid = false
+    var isSummaryLocalCacheValid = false
+    
+    func clearCaches() {
+        isQuoteLocalCacheValid = false
+        isSummaryLocalCacheValid = false
+    }
+}
+
+protocol TextFileNameIdentifiable {
+    var textFileName: String { get set }
 }
 
 @Model
-final class SummaryData {
-    var textFileName: String
+final class SummaryData: TextFileNameIdentifiable {
+    var textFileName: String = ""
     var chapterNumber: Int
     var text: String
     
@@ -55,8 +65,8 @@ final class SummaryData {
 
 
 @Model
-final class IllustrationContainer: ObservableObject, Identifiable {
-    var textFileName: String
+final class IllustrationContainer: ObservableObject, Identifiable, TextFileNameIdentifiable {
+    var textFileName: String = ""
     var quote: String = ""
     var prompt: String = ""
     var imageURL: String = ""
@@ -85,9 +95,9 @@ final class IllustrationContainer: ObservableObject, Identifiable {
     }
 }
 
-
 @Model
 final class PromptsData {
+    //Todo: remove
     @Attribute(.unique) var id: UUID
     var prompts: [PromptKeys: String] = [:]
     
@@ -99,3 +109,11 @@ final class PromptsData {
     }
 }
 
+@Model
+final class SettingData {
+    var textFileName: String = ""
+    
+    init(textFileName: String) {
+        self.textFileName = textFileName
+    }
+}

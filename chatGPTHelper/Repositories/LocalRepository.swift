@@ -13,6 +13,8 @@ protocol LocalRepositoryProtocol {
     
     func fetch<T: PersistentModel>(withID id: PersistentIdentifier) -> T? where T: Identifiable
     
+    func fetch<T>(withPredicate: Predicate<T>) -> [T]? where T: PersistentModel, T: TextFileNameIdentifiable
+
     func delete(withID id: PersistentIdentifier)
     
     func deleteAllSummaries()
@@ -32,6 +34,33 @@ final class LocalRepository: LocalRepositoryProtocol {
             return result
         } catch {
             print("Failed to fetch \(T.self): \(error)")
+            return nil
+        }
+    }
+    
+//    func fetch<T: TextFileNameIdentifiable>(textFileName: String) -> [T]? where T: PersistentModel, T: TextFileNameIdentifiable {
+//        var fetchRequest = FetchDescriptor<T>()
+//        fetchRequest.predicate = #Predicate<T> { $0.textFileName == textFileName }
+//        
+//        do {
+//            let result = try modelContext?.fetch(fetchRequest)
+//            return result
+//        } catch {
+//            print("Failed to fetch \(T.self) with textFileName \(textFileName): \(error)")
+//            return nil
+//        }
+//    }
+    
+        // we pass predicate, not fileName due to the bug in SwiftData
+    func fetch<T>(withPredicate: Predicate<T>) -> [T]? where T: PersistentModel {
+        var fetchRequest = FetchDescriptor<T>()
+        fetchRequest.predicate = withPredicate
+        
+        do {
+            let result = try modelContext?.fetch(fetchRequest)
+            return result
+        } catch {
+            print("Failed to fetch \(T.self)")
             return nil
         }
     }
@@ -62,7 +91,6 @@ final class LocalRepository: LocalRepositoryProtocol {
             assertionFailure("No context for saving data")
             return
         }
-        
         modelContext.insert(object)
         do {
             print("Saving object: \(object)")

@@ -29,7 +29,7 @@ class Interactor {
         var wholeText: String = ""
 
         do {
-            if let fileURL = Bundle.main.url(forResource: "MexicanGirl", withExtension: "txt") {
+            if let fileURL = Bundle.main.url(forResource: appStateModel?.textFileName, withExtension: "txt") {
                 wholeText = try String(contentsOf: fileURL, encoding: .utf8)
             } else {
                 print("File not found in the bundle.")

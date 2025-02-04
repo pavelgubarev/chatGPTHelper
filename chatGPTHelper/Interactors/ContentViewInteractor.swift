@@ -25,5 +25,11 @@ final class ContentViewInteractor: Interactor {
                 }
             }
         }
+        
+        if let data: [SettingData] = localRepository.fetch() {
+            if let settingsData = data.first {
+                appStateModel?.textFileName = settingsData.textFileName
+            }
+        }
     }
 }

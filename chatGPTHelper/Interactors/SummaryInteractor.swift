@@ -15,7 +15,6 @@ protocol SummaryInteractorProtocol: Interactor {
 }
 
 final class SummaryInteractor: Interactor, SummaryInteractorProtocol {
-    private var isLocalCacheLoaded = false // Added variable
     
     @MainActor
     func requestAllSummaries() {        
@@ -31,9 +30,9 @@ final class SummaryInteractor: Interactor, SummaryInteractorProtocol {
                 
                 do {
                     let response = try await result
-                    let summaryObject = SummaryData(chapterNumber: index, text: response, textFileName: "MexicanGirl")
-                    DispatchQueue.main.async {
-                        self.appStateModel?.summaries.append(summaryObject)
+                    let summaryObject = SummaryData(chapterNumber: index, text: response, textFileName: self.appStateModel?.textFileName ?? "")
+                    self.appStateModel?.summaries.append(summaryObject)
+                    Task(priority: .background) {
                         self.localRepository.save(summaryObject)
                     }
                 } catch {
@@ -43,11 +42,22 @@ final class SummaryInteractor: Interactor, SummaryInteractorProtocol {
         }
     }
     
+    @MainActor
     func onAppear() {
-        guard !isLocalCacheLoaded,
-              let result: [SummaryData] = localRepository.fetch() else { return }
+        guard let appStateModel,
+              !appStateModel.isSummaryLocalCacheValid else { return }
         
-        self.isLocalCacheLoaded = true
+        let fileName = appStateModel.textFileName
+        let predicate = #Predicate<SummaryData> {
+            $0.textFileName == fileName
+        }
+        guard let result: [SummaryData] = localRepository.fetch(withPredicate: predicate) else { return }
+        
+        DispatchQueue.main.async {
+            self.setupText()
+        }
+        
+        appStateModel.isSummaryLocalCacheValid = true
         DispatchQueue.main.async {
             self.appStateModel?.summaries = result
         }
@@ -55,7 +65,7 @@ final class SummaryInteractor: Interactor, SummaryInteractorProtocol {
     
     private func removeOldSummaries() {
         DispatchQueue.main.async {
-            self.localRepository.deleteAllSummaries()
+//            self.localRepository.deleteAllSummaries()
             self.appStateModel?.summaries = []
         }
     }

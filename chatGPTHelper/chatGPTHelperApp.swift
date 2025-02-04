@@ -22,6 +22,13 @@ struct chatGPTHelperApp: App {
                 )
             }
         }
-        .modelContainer(for: [PromptsData.self, MockedResponseData.self, SummaryData.self, IllustrationContainer.self])
+        .modelContainer(for: [
+            PromptsData.self,
+            MockedResponseData.self,
+            SummaryData.self,
+            IllustrationContainer.self,
+            SettingData.self
+            ]
+        )
     }
 }
