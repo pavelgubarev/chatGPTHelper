@@ -15,6 +15,8 @@ protocol WebRepositoryProtocol {
     func fetchChatGPTImageResponse(prompt: String) async throws -> String
 
     func configure(appStateModel: AppStateModel)
+    
+    func fetchChatGPTEmbeddings(prompt: String) async throws -> [Double]
 }
 
 final class WebRepository: WebRepositoryProtocol {
@@ -62,6 +64,25 @@ final class WebRepository: WebRepositoryProtocol {
         return response.data.first?.url ?? "No image URL received."
     }
     
+    func fetchChatGPTEmbeddings(prompt: String) async throws -> [Double] {
+        let requestBody = EmbeddingRequest(
+            model: "text-embedding-3-small",
+            input: prompt
+        )
+
+        let response: EmbeddingResponse = try await fetchOpenAIResponse(
+            requestBody: requestBody,
+            responseType: EmbeddingResponse.self,
+            url: "https://api.openai.com/v1/embeddings"
+        )
+
+        if let error = response.error {
+            throw NSError(domain: "OpenAIAPI", code: 0, userInfo: [NSLocalizedDescriptionKey: error.message])
+        }
+
+        return response.data.first?.embedding ?? []
+    }
+    
     func configure(appStateModel: AppStateModel) {
         self.appStateModel = appStateModel
     }
@@ -89,5 +110,4 @@ final class WebRepository: WebRepositoryProtocol {
         let decodedResponse = try JSONDecoder().decode(responseType, from: data)
         return decodedResponse
     }
-
 }

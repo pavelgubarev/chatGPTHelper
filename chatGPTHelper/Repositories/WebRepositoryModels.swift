@@ -46,3 +46,17 @@ struct ImageGenerationResponse: Codable {
     let data: [Data]
     let error: APIError?
 }
+
+struct EmbeddingRequest: Codable {
+    let model: String
+    let input: String
+}
+
+struct EmbeddingResponse: Codable {
+    struct Data: Codable {
+        let embedding: [Double]
+    }
+    
+    let data: [Data]
+    let error: APIError?
+}

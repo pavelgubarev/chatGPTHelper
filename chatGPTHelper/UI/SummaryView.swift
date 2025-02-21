@@ -20,12 +20,22 @@ struct SummaryView: View {
             Button("Update All The Summaries") {
                 // TODO: refactor this
                 dependencies.interactors.summary.setupText()
-                dependencies.interactors.summary.requestAllSummaries()
+                Task {
+                    await dependencies.interactors.summary.requestAllSummaries()
+                }
             }.padding()
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(appStateModel.summaries, id: \.self) { summary in
-                        scrollableTextCard(text: summary.text)
+                        VStack {
+                            scrollableTextCard(text: summary.text)
+                            Button("Get embedding") {
+                                Task {
+                                    await dependencies.interactors.summary.getEmbedding(for: summary.chapterNumber)
+                                }
+                            }
+                            Text( summary.embedding != nil ? "Got embedding": "No embedding ")
+                        }
                     }
                 }
                 .padding()

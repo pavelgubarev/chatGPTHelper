@@ -68,8 +68,6 @@ struct IllustrationView: View {
                 .foregroundColor(.gray)
                 .frame(height: 100)
             
-            Text(illustration.imageURL)
-            
             if illustration.imageURL != "" {
                 if let imageData = try? Data(contentsOf: URL(
                     string: "file://" + illustration.imageURL)!
@@ -88,8 +86,8 @@ struct IllustrationView: View {
                 Text("...ждём")
             }
         }
-        .transition(.scale) // Smooth entry/exit animation
-        .id(illustration.persistentID) // Necessary for animation to track items
+        .transition(.scale)
+        .id(illustration.persistentID) 
     }
 }
 

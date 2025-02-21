@@ -55,6 +55,7 @@ final class SummaryData: TextFileNameIdentifiable {
     var textFileName: String = ""
     var chapterNumber: Int
     var text: String
+    var embedding: [Double]?
     
     init(chapterNumber: Int, text: String, textFileName: String) {
         self.textFileName = textFileName
